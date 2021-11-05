@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 
 //const bcrypt = require("bcrypt");
 //const cookieParser = require("cookie-parser");
-//const session = require("express-session");
+const session = require("express-session");
 
 const {mongoose} = require("./database");
 dotenv.config({ path: path.resolve(__dirname, './.env') });
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use("/api", require("./routes/index.routes"));
 
 //  ============= STATIC FILES
-app.use(express.static(path.join(__dirname, "public")));
+//app.use(express.static(path.join(__dirname, "public")));
 
 // Starting the server
 app.listen(PORT, () => {
