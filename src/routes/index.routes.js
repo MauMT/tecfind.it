@@ -1,8 +1,15 @@
 const {Router} = require('express');
 const router = Router();
 
+const Users = require('../models/users')
+const Comments = require('../models/comments')
+const Posts = require('../models/posts')
+
 router.get("/", (req,res) => {
-    res.send("Hello World!");
+    Users.find(function(err, users){
+        console.log(users)
+    })
+    res.json("api works")
 });
 
 router.get("/post/:id", (req,res) => {
