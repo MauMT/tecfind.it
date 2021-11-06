@@ -2,8 +2,7 @@ const {Schema, model} = require('mongoose');
 
 var commentSchema = new Schema({
     commentID: { 
-        type: Number,
-        required: true
+        type: Number
     },
     //foreign key in RDBMS
     correo: {
@@ -14,8 +13,7 @@ var commentSchema = new Schema({
     },
     //foreign key in RDBMS 
     postID: { 
-        type: Number,
-        required: true
+        type: Number
     },
     fecha: {
         type: Date,

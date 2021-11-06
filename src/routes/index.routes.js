@@ -76,13 +76,31 @@ router.delete("/post", (req,res) => {
     res.send(`Post ${req.params.id}`);
 });
 
-router.post("/createcomment", (req,res) => {
-    res.send(`Post ${req.params.id}`);
+router.post("/createcomment", async(req,res) => {
+    
+    const commentData = {
+        "commentID": req.body.commentID,
+        "correo": req.body.correo,
+        "postID": req.body.postID,
+        "fecha": req.body.fecha,
+        "texto": req.body.texto,
+
+        }  
+        const comment = new Comments(commentData);
+        await comment.save();
+        res.json({status: "Post saved"});
+
 });
 
 router.put("/post/status", (req,res) => {
     const newStatus = req.body.tag;
-    //Posts.findByIdAndUpdate()
+    const postID = req.body.postID;
+    Posts.findByIdAndUpdate({postID, newStatus}, (err, post) => {
+        if (err) {
+            console.log(err);
+        }
+        res.json({status: "Post updated"});
+    });
 });
 
 module.exports = router; 
