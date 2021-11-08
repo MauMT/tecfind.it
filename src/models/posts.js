@@ -1,9 +1,6 @@
 const {Schema, model} = require('mongoose');
 
 var postSchema = new Schema({
-    postID: { 
-        type: Number
-    },
     //foreign key in RDBMS
     correo: {
         type: String,

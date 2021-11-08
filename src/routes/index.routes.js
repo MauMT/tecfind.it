@@ -57,7 +57,6 @@ router.get("/logout", (req,res) => {
 router.post("/createpost", async(req,res) => {
     
     const postData = {
-    "postID": req.body.postID,
     "correo": req.body.correo,
     "objectName": req.body.objectName,
     "lugar": req.body.lugar,
@@ -79,7 +78,6 @@ router.delete("/post", (req,res) => {
 router.post("/createcomment", async(req,res) => {
     
     const commentData = {
-        "commentID": req.body.commentID,
         "correo": req.body.correo,
         "postID": req.body.postID,
         "fecha": req.body.fecha,
@@ -91,10 +89,10 @@ router.post("/createcomment", async(req,res) => {
         res.json({status: "Post saved"});
 
 });
-
-router.put("/post/status", (req,res) => {
+//checar si usar get, put o post y quizá cambiar ruta para modificar el status de un post
+router.get("/post/status", (req,res) => {
     const newStatus = req.body.tag;
-    const postID = req.body.postID;
+    const postID = req.params.postID;
     Posts.findByIdAndUpdate({postID, newStatus}, (err, post) => {
         if (err) {
             console.log(err);
