@@ -11,7 +11,7 @@ const Posts = require('../models/posts');
 
 
 router.get("/", (req,res) => {
-    res.render(__dirname + "/../views/templates/_header.ejs");
+    res.render(__dirname + "/../views/home.ejs");
 });
 
 router.get("/api/post/:id", async(req, res) => {
