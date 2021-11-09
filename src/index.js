@@ -21,15 +21,16 @@ app.use(express.json());
 
 //app.use(cookieParser());
 
+
 // ============= ROUTES
-app.use("/api", require("./routes/index.routes"));
+app.use("/", require("./routes/index.routes"));
 
 //  ============= STATIC FILES
-//app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Starting the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-console.log(process.env.MONGODB_URI);
+console.log(`Database: ${process.env.MONGODB_URI}`);

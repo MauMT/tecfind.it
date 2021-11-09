@@ -2,34 +2,48 @@ const {Router} = require('express');
 const router = Router();
 //const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 const Users = require('../models/users')
 const Comments = require('../models/comments')
 const Posts = require('../models/posts');
 
 
-/* router.get("/", (req,res) => {
-    Users.find(function(err, users){
-        console.log(users)
-    })
-    res.json("api works")
-}); */
 
-router.get("/post/:id", async(req, res) => {
-    const post = await Posts.find({postID: req.params.id})
-    res.json(post)
+router.get("/", (req,res) => {
+    res.render(__dirname + "/../views/templates/_header.ejs");
 });
 
-router.get("/myposts", async(req,res) => {
+router.get("/api/post/:id", async(req, res) => {
+    const post = await Posts.find({_id: new ObjectId(req.params.id)}).catch(err => {
+        console.log(err);
+    });
+    res.json(post) //cambiar a render de post
+});
+
+router.get("/api/myposts", async(req,res) => {
     const result = await Posts.find({userID: req.user.id})
     res.json(result)
 });
 
-router.post("/signup", (req,res) => {
-    
+router.post("/api/signup", async(req,res) => {
+    const userData = {
+        "correo": req.body.correo,
+        "nombreUsuario": req.body.nombreUsuario,
+        "password": req.body.password
+        }  
+        const user = new Users(userData);
+        await user.save()
+        .then(user => {
+            res.json(user) //redirect to my posts
+        })
+        .catch(err => { //if the user already exists show error and the user the form again
+            res.status(400).send("unable to save to database");
+        });
+       
 });
 
-router.get("/login", (req,res) => {
+router.get("/api/login", (req,res) => {
     if (req.session.user) {
         res.send({ loggedIn: true, user: req.session.user });
     } else {
@@ -37,24 +51,24 @@ router.get("/login", (req,res) => {
     }
 });
 
-router.post("/login", (req,res) => {
+router.post("/api/login", (req,res) => {
     
 });
 
-router.get("/logout", (req,res) => {
-    req.session.destroy((err) => {
+router.get("/api/logout", (req,res) => {
+    /* req.session.destroy((err) => {
         console.log(req.session);
         if (err) {
             console.log(err);
         }
         res.clearCookie("userId");
         res.send("user logged out");
-        });
+        }); */
 });
 
 
 
-router.post("/createpost", async(req,res) => {
+router.post("/api/createpost", async(req,res) => {
     
     const postData = {
     "correo": req.body.correo,
@@ -71,11 +85,11 @@ router.post("/createpost", async(req,res) => {
     
 });
 
-router.delete("/post", (req,res) => {
+router.delete("/api/post", (req,res) => {
     res.send(`Post ${req.params.id}`);
 });
 
-router.post("/createcomment", async(req,res) => {
+router.post("/api/createcomment", async(req,res) => {
     
     const commentData = {
         "correo": req.body.correo,
@@ -90,7 +104,7 @@ router.post("/createcomment", async(req,res) => {
 
 });
 //checar si usar get, put o post y quizá cambiar ruta para modificar el status de un post
-router.get("/post/status", (req,res) => {
+router.get("/api/post/status", (req,res) => {
     const newStatus = req.body.tag;
     const postID = req.params.postID;
     Posts.findByIdAndUpdate({postID, newStatus}, (err, post) => {
