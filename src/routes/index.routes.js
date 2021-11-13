@@ -14,6 +14,10 @@ router.get("/", (req,res) => {
     res.render(__dirname + "/../views/home.ejs");
 });
 
+router.get("/login-signup", (req, res) =>{
+    res.render(__dirname + "/../views/login.ejs");
+});
+
 router.get("/api/post/:id", async(req, res) => {
     const post = await Posts.find({_id: new ObjectId(req.params.id)}).catch(err => {
         console.log(err);
