@@ -3,10 +3,14 @@ const router = Router();
 //const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const ObjectId = require('mongoose').Types.ObjectId; 
+const { check } = require('express-validator');
 
 const Users = require('../models/users')
 const Comments = require('../models/comments')
 const Posts = require('../models/posts');
+
+
+const UserController = require('../controllers/UserController');
 
 
 
@@ -30,45 +34,24 @@ router.get("/api/myposts", async(req,res) => {
     res.json(result)
 });
 
-router.post("/api/signup", async(req,res) => {
-    const userData = {
-        "correo": req.body.correo,
-        "nombreUsuario": req.body.nombreUsuario,
-        "password": req.body.password
-        }  
-        const user = new Users(userData);
-        await user.save()
-        .then(user => {
-            res.json(user) //redirect to my posts
-        })
-        .catch(err => { //if the user already exists show error and the user the form again
-            res.status(400).send("unable to save to database");
-        });
-       
-});
+router.post("/api/signup",
+    [
+        check('userName', 'El nombre de usuario es requerido').not().isEmpty(),
+        check('email', 'Un correo es requerido').normalizeEmail().isEmail(),
+        check('password', 'Una contraseña de seis digitos es requerida').isLength({min: 6})
+    ],
+    UserController.signUp
+);
 
-router.get("/api/login", (req,res) => {
-    if (req.session.user) {
-        res.send({ loggedIn: true, user: req.session.user });
-    } else {
-        res.send({ loggedIn: false });
-    }
-});
+router.post("/api/login",
+    [
+        check('email', 'Un correo registrado es requerido').normalizeEmail().isEmail(),
+        check('password', 'El campo contraseña es requerido').not().isEmpty()
+    ],
+    UserController.login
+)
 
-router.post("/api/login", (req,res) => {
-    
-});
 
-router.get("/api/logout", (req,res) => {
-    /* req.session.destroy((err) => {
-        console.log(req.session);
-        if (err) {
-            console.log(err);
-        }
-        res.clearCookie("userId");
-        res.send("user logged out");
-        }); */
-});
 
 
 
