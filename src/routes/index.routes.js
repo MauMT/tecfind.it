@@ -5,7 +5,7 @@ const session = require("express-session");
 const ObjectId = require('mongoose').Types.ObjectId; 
 const { check } = require('express-validator');
 
-const Users = require('../models/users')
+
 const Comments = require('../models/comments')
 const Posts = require('../models/posts');
 

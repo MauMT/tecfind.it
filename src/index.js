@@ -31,13 +31,14 @@ app.use((req, res, next) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, PUT');
 
   next();
 });
 
 // ============= ROUTES
 app.use("/", require("./routes/index.routes"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route.', 404);
@@ -58,7 +59,7 @@ app.use((error, req, res, next) => {
 });
 
 //  ============= STATIC FILES
-app.use(express.static(path.join(__dirname, "public")));
+
 
 // Starting the server
 app.listen(PORT, () => {
