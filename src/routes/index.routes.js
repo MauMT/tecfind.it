@@ -66,7 +66,9 @@ router.get("/api/logout", (req,res) => {
         }); */
 });
 
-
+router.get("/api/createpost", async(req,res) => {
+    res.render(__dirname + "/../views/createpost.ejs");
+})
 
 router.post("/api/createpost", async(req,res) => {
     
@@ -80,9 +82,8 @@ router.post("/api/createpost", async(req,res) => {
     }  
     const post = new Posts(postData);
     await post.save();
-    res.json({status: "Post saved"});
+    res.render(__dirname + "/../views/home.ejs");
 
-    
 });
 
 router.delete("/api/post", (req,res) => {

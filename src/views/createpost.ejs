@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('templates/_header') %>
+    <!-- <link rel="stylesheet" href="/assets/createStyles.css"> -->
+	<body>
+		<form action="/api/createpost" method="post">
+			<div class="form-title-container"><h1>Agregar un Post</h1></div>
+			<table>
+				<tr class="input-container">
+					<td>
+						<label for="correo">Ingresa email: </label>
+					</td>
+					<td>
+						<input
+							name="correo"
+							id="correo"
+							type="email"
+							placeholder="prueba@gmail.com"
+						/>
+					</td>
+				</tr>
+				<tr class="input-container">
+					<td>
+						<label for="objectName"
+							>Ingresa nombre del objeto perdido:
+						</label>
+					</td>
+					<td>
+						<input
+							name="objectName"
+							id="objectName"
+							type="text"
+							placeholder="mochila"
+						/>
+					</td>
+				</tr>
+				<tr class="input-container">
+					<td>
+						<label for="objectDetails"
+							>Ingresa detalles del objeto perdido:
+						</label>
+					</td>
+					<td>
+						<input
+							name="objectDetails"
+							id="objectDetails"
+							type="text"
+							placeholder="Color rojo"
+						/>
+					</td>
+				</tr>
+				<tr class="input-container">
+					<td>
+						<label for="lugar"
+							>Ingresa el lugar donde lo perdiste:
+						</label>
+					</td>
+					<td>
+						<input
+							name="lugar"
+							id="lugar"
+							type="text"
+							placeholder="Biblioteca Piso 4, cubiculos"
+						/>
+					</td>
+				</tr>
+				<tr class="input-container">
+					<td>
+						<label for="fecha"
+							>Ingresa la fecha en que lo perdiste:
+						</label>
+					</td>
+					<td>
+						<input name="fecha" id="fecha" type="date" />
+					</td>
+				</tr>
+				<tr class="input-container">
+					<td>
+						<label for="image"
+							>Ingresa una imagen del objeto:
+						</label>
+					</td>
+					<td>
+						<input name="image" id="image" type="file" />
+					</td>
+				</tr>
+				<tr class="input-container">
+					<td>
+						<label for="tag">Ingresa algun tag: </label>
+					</td>
+					<td>
+						<select name="tag" id="tag">
+							<option value="Perdido">Perdido</option>
+							<option value="Encontrado">Encontrado</option>
+						</select>
+					</td>
+				</tr>
+				<tr class="input-submit-container">
+					<td></td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
+	</body>
+	<%- include('templates/_footer') %>
+</html>
