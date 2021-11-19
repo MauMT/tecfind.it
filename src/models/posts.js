@@ -6,13 +6,15 @@ var postSchema = new Schema({
         type: String,
         required: true,
         minLength: 3,
-        maxlength: 100
+        maxlength: 100,
+        default: 'test@testing.com'
     }, 
     tag: {
         type: String,
         required: true,
         minLength: 3,
-        maxlength: 15
+        maxlength: 15,
+        default: 'Open'
     },
     objectName: {
         type: String,

@@ -1,106 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 	<%- include('templates/_header') %>
-    <!-- <link rel="stylesheet" href="/assets/createStyles.css"> -->
 	<body>
-		<form action="/api/createpost" method="post">
-			<div class="form-title-container"><h1>Agregar un Post</h1></div>
-			<table>
-				<tr class="input-container">
-					<td>
-						<label for="correo">Ingresa email: </label>
-					</td>
-					<td>
-						<input
-							name="correo"
-							id="correo"
-							type="email"
-							placeholder="prueba@gmail.com"
-						/>
-					</td>
-				</tr>
-				<tr class="input-container">
-					<td>
-						<label for="objectName"
-							>Ingresa nombre del objeto perdido:
-						</label>
-					</td>
-					<td>
-						<input
-							name="objectName"
-							id="objectName"
-							type="text"
-							placeholder="mochila"
-						/>
-					</td>
-				</tr>
-				<tr class="input-container">
-					<td>
-						<label for="objectDetails"
-							>Ingresa detalles del objeto perdido:
-						</label>
-					</td>
-					<td>
-						<input
-							name="objectDetails"
-							id="objectDetails"
-							type="text"
-							placeholder="Color rojo"
-						/>
-					</td>
-				</tr>
-				<tr class="input-container">
-					<td>
-						<label for="lugar"
-							>Ingresa el lugar donde lo perdiste:
-						</label>
-					</td>
-					<td>
-						<input
-							name="lugar"
-							id="lugar"
-							type="text"
-							placeholder="Biblioteca Piso 4, cubiculos"
-						/>
-					</td>
-				</tr>
-				<tr class="input-container">
-					<td>
-						<label for="fecha"
-							>Ingresa la fecha en que lo perdiste:
-						</label>
-					</td>
-					<td>
-						<input name="fecha" id="fecha" type="date" />
-					</td>
-				</tr>
-				<tr class="input-container">
-					<td>
-						<label for="image"
-							>Ingresa una imagen del objeto:
-						</label>
-					</td>
-					<td>
-						<input name="image" id="image" type="file" />
-					</td>
-				</tr>
-				<tr class="input-container">
-					<td>
-						<label for="tag">Ingresa algun tag: </label>
-					</td>
-					<td>
-						<select name="tag" id="tag">
-							<option value="Perdido">Perdido</option>
-							<option value="Encontrado">Encontrado</option>
-						</select>
-					</td>
-				</tr>
-				<tr class="input-submit-container">
-					<td></td>
-					<td><input type="submit" /></td>
-				</tr>
-			</table>
-		</form>
+		<div class="auth-wrapper">
+			<div class="auth-inner">
+				<form action="/api/createpost" method="post">
+					<h3>Create Post</h3>
+		
+					<div class="form-group">
+					<label class="form-label">Object name</label>
+					<input
+						name="objectName"
+						type="text"
+						class="form-control"
+						placeholder="Enter object name"
+					/>
+					</div>
+		
+					<div class="form-group">
+					<label>Place</label>
+					<select
+						name="lugar"
+						defaultValue={aulasOptions[0]}
+						options={groupedOptions}
+						formatGroupLabel={formatGroupLabel}
+					>
+						<option value="a1">A1</option>
+						<option value="a2">A2</option>
+						<option value="a3">A3</option>
+						<option value="a4">A4</option>
+						<option value="a5">A5</option>
+						<option value="a6">A6</option>
+						<option value="a7">A7</option>
+						<option value="ciap">CIAP</option>
+						<option value="centrales">Centrales</option>
+						<option value="la-carreta">La Carreta</option>
+						<option value="jubileo">Jubileo</option>
+						<option value="e1">E1</option>
+						<option value="e4">E4</option>
+						<option value="e6">E6</option>
+						<option value="e7">E7</option>
+						<option value="bibliotec">BiblioTec</option>
+						<option value="rectoria">Rectoria</option>
+						<option value="cetec">CETEC</option>
+						<option value="jdc">JDC</option>
+						<option value="otro">Otro</option>
+					</select>
+					</div>
+		
+					<div class="form-group">
+					<label>Date found</label>
+					<input name="fecha" id="fecha" type="date" value="<%= new Date().getFullYear(); %>-<%= new Date().getMonth()+1; %>-<%= new Date().getDate(); %>"/>
+					</div>
+		
+					<div class="form-group">
+					<label>Image</label>
+					<input name="image" id="image" type="file" />
+					</div>
+		
+					<button
+					type="submit"
+					class="btn btn-primary btn-block btnCreate"
+					>
+					Submit
+					</button>
+				</form>
+			</div>
+		</div>
 	</body>
 	<%- include('templates/_footer') %>
 </html>
