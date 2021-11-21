@@ -46,14 +46,14 @@ export default class SignUp extends Component {
       <div className="auth-wrapper">
         <div className="auth-inner">
           <form>
-            <h3>Sign Up</h3>
+            <h3>Registrate</h3>
 
             <div className="form-group">
-              <label>Full name</label>
+              <label>Nombre completo</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Full name"
+                placeholder="Nombre completo"
                 onChange={(e) =>
                   this.setState({ registerName: e.target.value, success: "" })
                 }
@@ -61,11 +61,11 @@ export default class SignUp extends Component {
             </div>
 
             <div className="form-group">
-              <label>Email address</label>
+              <label>Email</label>
               <input
                 type="email"
                 className="form-control"
-                placeholder="Enter email"
+                placeholder="Ingresa tu email"
                 onChange={(e) =>
                   this.setState({ registerEmail: e.target.value, success: "" })
                 }
@@ -73,11 +73,11 @@ export default class SignUp extends Component {
             </div>
 
             <div className="form-group">
-              <label>Password</label>
+              <label>Contraseña</label>
               <input
                 type="password"
                 className="form-control"
-                placeholder="Enter password"
+                placeholder="Ingresa contraseña"
                 onChange={(e) =>
                   this.setState({
                     registerPassword: e.target.value,
@@ -94,10 +94,10 @@ export default class SignUp extends Component {
               className="btn btn-primary btn-block"
               onClick={this.signUp}
             >
-              Sign Up
+              Registrar
             </button>
             <p className="forgot-password text-right">
-              Already registered <a href="/login">sign in?</a>
+              ¿Ya estás registrado? <a href="/login">Inicia sesión</a>
             </p>
           </form>
         </div>

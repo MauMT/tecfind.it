@@ -140,14 +140,14 @@ export default class CreatePost extends Component {
       <div className="auth-wrapper">
         <div className="auth-inner">
           <form>
-            <h3>Create Post</h3>
+            <h3>Crea un Post</h3>
 
             <div className="form-group">
-              <label>Object name</label>
+              <label>Nombre del objeto</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter object name"
+                placeholder="Ingresa el nombre del objeto"
                 onChange={(e) => {
                   this.setState({
                     objName: e.target.value,
@@ -157,7 +157,7 @@ export default class CreatePost extends Component {
             </div>
 
             <div className="form-group">
-              <label>Place</label>
+              <label>Lugar</label>
               <Select
                 defaultValue={aulasOptions[0]}
                 options={groupedOptions}
@@ -181,7 +181,7 @@ export default class CreatePost extends Component {
             </div>
 
             <div className="form-group">
-              <label>Date found</label>
+              <label>Fecha encontrado</label>
               <br></br>
               <DatePicker
                 className="form-control"
@@ -191,9 +191,9 @@ export default class CreatePost extends Component {
             </div>
 
             <div className="form-group">
-              <label>Image</label>{" "}
+              <label>Imagen</label>{" "}
               <small className="text-muted">
-                wait for upload success message
+                Espera al mensaje de subida exitosa
               </small>
               <input
                 type="file"
@@ -208,7 +208,7 @@ export default class CreatePost extends Component {
               className="btn btn-primary btn-block btnCreate"
               onClick={this.createpost}
             >
-              Submit
+              Crear
             </button>
           </form>
         </div>

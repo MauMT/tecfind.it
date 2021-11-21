@@ -110,7 +110,7 @@ export default class Home extends Component {
       <div style={{ marginTop: "50px", paddingBottom: "30px" }}>
         <div className="sidebar">
           <div className="sideItemStyle">
-            <p className="nameStyle"> Status </p>
+            <p className="nameStyle"> Estado </p>
             <div className="btns">
               <button
                 className="btn btnLeft"
@@ -119,7 +119,7 @@ export default class Home extends Component {
                 autoFocus
               >
                 {" "}
-                All{" "}
+                Todos{" "}
               </button>
               <button
                 className="btn btnLeft"
@@ -127,7 +127,7 @@ export default class Home extends Component {
                 onClick={this.handleTag}
               >
                 {" "}
-                Open{" "}
+                Abierto{" "}
               </button>
               <button
                 className="btn btnLeft"
@@ -135,7 +135,7 @@ export default class Home extends Component {
                 onClick={this.handleTag}
               >
                 {" "}
-                Closed{" "}
+                Cerrado{" "}
               </button>
               <button
                 className="btn btnLeft"
@@ -143,12 +143,12 @@ export default class Home extends Component {
                 onClick={this.handleTag}
               >
                 {" "}
-                To be collected{" "}
+               Esperando recolección{" "}
               </button>
             </div>
           </div>
           <div className="sideItemStyle">
-            <p className="nameStyle"> Place </p>
+            <p className="nameStyle"> Lugar </p>
             <div className="btns2 btns">
               <button
                 className="btn btnLeft"
@@ -156,7 +156,7 @@ export default class Home extends Component {
                 onClick={this.handlePlace}
               >
                 {" "}
-                All{" "}
+                Todos{" "}
               </button>
               <button
                 className="btn btnLeft"
@@ -315,7 +315,7 @@ export default class Home extends Component {
         </div>
 
         <div className="postsMenu">
-          <h1 className="post-title">{"Welcome " + this.state.name}</h1>
+          <h1 className="post-title">{"Bienvenido " + this.state.name}</h1>
           <br></br>
           <div className="barrita">
             <input
@@ -349,7 +349,7 @@ export default class Home extends Component {
               })}
             </div>
           ) : (
-            <h2 className="no-posts">Loading posts 😈<br></br><br></br><div class="lds-dual-ring"></div></h2>
+            <h2 className="no-posts">Cargando posts 😈<br></br><br></br><div class="lds-dual-ring"></div></h2>
           )}
         </div>
       </div>

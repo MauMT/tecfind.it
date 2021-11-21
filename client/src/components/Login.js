@@ -52,21 +52,21 @@ export default class Login extends Component {
             <h3>Log In</h3>
 
             <div className="form-group">
-              <label>Email address</label>
+              <label>Email </label>
               <input
                 type="email"
                 className="form-control"
-                placeholder="Enter email"
+                placeholder="Ingresa tu email"
                 onChange={(e) => this.setState({ loginEmail: e.target.value })}
               />
             </div>
 
             <div className="form-group">
-              <label>Password</label>
+              <label>Contraseña</label>
               <input
                 type="password"
                 className="form-control"
-                placeholder="Enter password"
+                placeholder="Ingresa tu contraseña"
                 onChange={(e) =>
                   this.setState({ loginPassword: e.target.value })
                 }
@@ -81,7 +81,7 @@ export default class Login extends Component {
                   id="customCheck1"
                 />
                 <label className="custom-control-label" htmlFor="customCheck1">
-                  Remember me
+                  Recuerdame
                 </label>
               </div>
             </div>
@@ -94,15 +94,15 @@ export default class Login extends Component {
               className="btn btn-primary btn-block"
               onClick={this.login}
             >
-              Submit
+              Ingresar
             </button>
             <p className="forgot-password text-right">
-              Forgot{" "}
+              ¿Olvidaste tu{" "}
               <a
                 href="#"
-                onClick={() => alert("A recovery email has been sent")}
+                onClick={() => alert("Un email para recuperarla ha sido enviado")}
               >
-                password?
+                contraseña?
               </a>
             </p>
           </form>

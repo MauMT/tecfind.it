@@ -3,8 +3,6 @@ import {Link} from "react-router-dom";
 import "../pages/App.css";
 
 
-
-
 export const Nav = (props) => {
 
     return (
@@ -22,23 +20,23 @@ export const Nav = (props) => {
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
                     <Link className="nav-link hola" to={"/"}>
-                      Home
+                      Inicio
                     </Link>
                   </li>
                   <Link className="nav-link hola" to={"/login"}>
             Log in
           </Link>
                   <Link className="nav-link hola" to={"/signup"}>
-            Sign up
+            Registrarse
           </Link>
                   <li className="nav-item">
           <Link className="nav-link hola" to={"/createpost"}>
-            Create post
+            Crear post
           </Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link hola" to={"/myposts"}>
-            My Posts
+            Mis Posts
           </Link>
         </li>
         <li className="nav-item">

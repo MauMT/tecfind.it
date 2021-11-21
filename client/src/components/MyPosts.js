@@ -47,7 +47,7 @@ export default class MyPosts extends Component {
   render() {
     return (
       <div style={{ marginTop: "100px" }}>
-        <h1 className="post-title">My posts</h1>
+        <h1 className="post-title">Mis posts</h1>
 
         {this.state.posts && this.state.posts.length > 0 ? (
           <div className="postStyle">
@@ -69,7 +69,7 @@ export default class MyPosts extends Component {
             })}
           </div>
         ) : (
-          <h2 className="no-posts">You have no posts 😖</h2>
+          <h2 className="no-posts">No tienes posts aún 😖</h2>
         )}
       </div>
     );
