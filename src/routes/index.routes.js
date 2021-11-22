@@ -7,7 +7,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const Users = require('../models/users')
 const Comments = require('../models/comments')
 const Posts = require('../models/posts');
-
+const bcrypt = require('bcrypt');
 
 
 router.get("/", (req,res) => {
@@ -22,7 +22,7 @@ router.get("/api/post/:id", async(req, res) => {
 });
 
 router.get("/api/myposts", async(req,res) => {
-    const result = await Posts.find({userID: req.user.id})
+    const result = await Posts.find({_id: req.user.id})
     res.json(result)
 });
 
@@ -31,16 +31,23 @@ router.post("/api/signup", async(req,res) => {
         "correo": req.body.correo,
         "nombreUsuario": req.body.nombreUsuario,
         "password": req.body.password
-        }  
+        } 
+        const result = await Users.find({correo: req.body.correo})
+        
+        if (result.length <= 0) {
+        
         const user = new Users(userData);
         await user.save()
         .then(user => {
             res.json(user) //redirect to my posts
         })
         .catch(err => { //if the user already exists show error and the user the form again
-            res.status(400).send("unable to save to database");
+            res.status(400).send("Unable to save to database");
         });
-       
+    } else {
+        res.status(400).send("User already exists");
+    }
+
 });
 
 router.get("/api/login", (req,res) => {
@@ -51,19 +58,41 @@ router.get("/api/login", (req,res) => {
     }
 });
 
-router.post("/api/login", (req,res) => {
+// ------------------------------------------------- CHECAR
+router.post("/api/login", async(req,res) => {
     
+    var email = req.body.correo;
+    var password = req.body.password;
+
+    const result = await Users.find({correo: email, password: password})
+console.log(result)
+        if (result.length > 0) {
+        console.log(`resu: ${result[0].nombreUsuario}`)
+        bcrypt.compare(password, result.password, response => {
+            if (response) {
+            req.session.nombreUsuario = result[0].nombreUsuario;
+            console.log(req.session.nombreUsuario);
+            res.send("logged in");
+            } else {
+            res.send({ message: "Wrong password" });
+            }
+        });
+        } else {
+        res.send({ message: "User doesn't exist" });
+        }
+   
 });
 
+// ------------------------------------------------- CHECAR
 router.get("/api/logout", (req,res) => {
-    /* req.session.destroy((err) => {
+    req.session.destroy((err) => {
         console.log(req.session);
         if (err) {
             console.log(err);
         }
         res.clearCookie("userId");
         res.send("user logged out");
-        }); */
+        });
 });
 
 
@@ -85,8 +114,15 @@ router.post("/api/createpost", async(req,res) => {
     
 });
 
-router.delete("/api/post", (req,res) => {
-    res.send(`Post ${req.params.id}`);
+router.delete("/api/post", async(req,res) => {
+    
+    if (req.session) {
+        const postID = req.body._id;
+        await Comments.deleteMany({postID: postID});
+        await Posts.deleteOne({_id: postID});
+      } else {
+        res.send("Access Unauthorized");
+      }
 });
 
 router.post("/api/createcomment", async(req,res) => {
