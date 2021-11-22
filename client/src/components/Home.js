@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import "./Home.css";
 import Post from "./Post";
+import '../index.css'
 
 export default class Home extends Component {
   constructor(props) {
@@ -107,7 +107,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "50px", paddingBottom: "30px" }}>
+      <div  style={{ marginTop: "50px", paddingBottom: "30px" }}>
         <div className="sidebar">
           <div className="sideItemStyle">
             <p className="nameStyle"> Estado </p>
@@ -349,7 +349,7 @@ export default class Home extends Component {
               })}
             </div>
           ) : (
-            <h2 className="no-posts">Cargando posts 😈<br></br><br></br><div class="lds-dual-ring"></div></h2>
+            <h2 className="no-posts">No hay posts 🥺</h2>
           )}
         </div>
       </div>

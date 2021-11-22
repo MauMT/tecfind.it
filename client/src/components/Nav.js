@@ -10,7 +10,7 @@ export const Nav = (props) => {
           <nav className="navbar navbar-expand-lg navbar-light fixed-top">
             {" "}
             <Link className="nav-link" to={"/"}>
-              tecfind.it🔎
+            &ensp;TecFind.it🔎
             </Link>
             <div className="container">
     
@@ -21,18 +21,18 @@ export const Nav = (props) => {
                 <ul className="navbar-nav ms-auto">
                   <li className="nav-item">
                     <Link className="nav-link hola" to={"/"}>
-                      Inicio
+                      Inicio&emsp;│
                     </Link>
                   </li>
                   <Link className="nav-link hola" to={"/login"}>
-            Log in
+            Log in&emsp;│
           </Link>
                   <Link className="nav-link hola" to={"/signup"}>
-            Registrarse
+            Registrarse&emsp;│
           </Link>
                   <li className="nav-item">
           <Link className="nav-link hola" to={"/createpost"}>
-            Crear post
+            Crear post&emsp;│
           </Link>
         </li>
         <li className="nav-item">

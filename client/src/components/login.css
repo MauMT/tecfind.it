@@ -9,9 +9,12 @@
 .backposts{
     margin: 0;
     color: #6a6f8c;
-    background: url(http://static3.neocha.com/magazine/wp-content/uploads/sites/2/2016/11/1041uuu-02.gif);
-    background-size:100%;
-    background-position: center;
+    background-image: url(https://i.pinimg.com/originals/48/05/bf/4805bfe8368d1783ce0b299ffd852bbb.gif);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-position-y: bottom;
+    background-color:#FCCDCA;
+
 }
 
 .backregister{
@@ -110,7 +113,7 @@
 }
 .input{
     font-weight: 200; 
-   color: #aaa 
+    color: #fff;
 }
 
 .group .warning {
@@ -129,10 +132,11 @@ input[type=file]::-webkit-file-upload-button {
     border: none;
     border-radius: 25px;
     background:rgba(0, 124, 120, 0.877);
-    color:#b3b3b3
+    color:#fff;
 }
 .buttonback{
-    font-family:'Open Sans', sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 100;
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
     margin-top: 2%;
     margin-bottom: -4%;
@@ -143,9 +147,10 @@ input[type=file]::-webkit-file-upload-button {
     font-size: 20px;
     padding: 15px 20px;
     border-radius: 25px;
-    background: #0B4879;
+    background: #0D7DBE;
     text-align:right;
     color:#fff;
+
 
 }
 .buttonback:focus, .buttonback:hover, .buttonback:visited, .buttonback:link, .buttonback:active {
@@ -199,5 +204,5 @@ input[type=file]::-webkit-file-upload-button {
 }
 
 ::placeholder {
-    color: #b3b3b3
+    color: #fff;
 }
