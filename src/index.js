@@ -15,7 +15,7 @@ const HttpError = require('./models/http-error');
 
 const {mongoose} = require("./database");
 dotenv.config({ path: path.resolve(__dirname, './.env') });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 //  ============= MIDDLEWARE
 
