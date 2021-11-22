@@ -157,6 +157,10 @@ input[type=file]::-webkit-file-upload-button {
     text-decoration: none;
     color: #fff;
 }
+.nomargin{
+    margin-left: 0%;
+
+}
 
 .login-space .group input[data-type="password"] {
 
