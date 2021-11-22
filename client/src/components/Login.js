@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Axios from "axios";
+import"./login.css";
+import { Link } from "react-router-dom";
 
 export default class Login extends Component {
   constructor() {
@@ -46,42 +47,47 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="auth-wrapper">
-        <div className="auth-inner">
+      <div className="auth-wrapper back">
+          <Link className="buttonback" to={"/"}>
+          Inicio
+        </Link>
+      <div className="login-box">
+        <div className=" login-snip">
           <form>
-            <h3>Log In</h3>
-
-            <div className="form-group">
-              <label>Email </label>
+            <h3 class="tab">Log In</h3>
+            <p></p>
+            <div className="group">
+              <label class="label">Email </label>
               <input
+                class="input"
                 type="email"
-                className="form-control"
                 placeholder="Ingresa tu email"
                 onChange={(e) => this.setState({ loginEmail: e.target.value })}
               />
             </div>
 
-            <div className="form-group">
-              <label>Contraseña</label>
+            <br/>
+            <div className="group">
+              <label class="label">Contraseña</label>
               <input
+                class="input"
                 type="password"
-                className="form-control"
                 placeholder="Ingresa tu contraseña"
                 onChange={(e) =>
                   this.setState({ loginPassword: e.target.value })
                 }
               />
             </div>
-
-            <div className="form-group">
+            <br/>
+            <div className="group">
               <div className="custom-control custom-checkbox">
                 <input
                   type="checkbox"
                   className="custom-control-input"
                   id="customCheck1"
                 />
-                <label className="custom-control-label" htmlFor="customCheck1">
-                  Recuerdame
+                <label className="check" htmlFor="customCheck1">
+                &nbsp; Recuerdame
                 </label>
               </div>
             </div>
@@ -91,12 +97,14 @@ export default class Login extends Component {
 
             <button
               type="submit"
-              className="btn btn-primary btn-block"
+              className="button"
               onClick={this.login}
             >
               Ingresar
             </button>
-            <p className="forgot-password text-right">
+            <div class="hr"></div>
+            <div class="foot">
+            <p className="foot">
               ¿Olvidaste tu{" "}
               <a
                 href="#"
@@ -105,11 +113,14 @@ export default class Login extends Component {
                 contraseña?
               </a>
             </p>
+            </div>
           </form>
         </div>
 
         <h1>{this.loginStatus}</h1>
       </div>
+      </div>
+
     );
   }
 }
