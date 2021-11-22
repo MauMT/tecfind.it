@@ -17,6 +17,7 @@ body {
   color: #0B4879;
   padding-bottom: 20px;
   font-weight: 600;
+  text-align: center;
 }
 h1{
   font-family:  'Open Sans', sans-serif;
@@ -290,6 +291,7 @@ font-weight: 100;
 
 .no-posts {
   color: #0B4879 !important;
+  text-align: center;
 }
 
 .lds-dual-ring {
