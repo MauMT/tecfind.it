@@ -85,7 +85,7 @@ export default class CreateComment extends Component {
             <div className="input-group-append">
               <button
                 type="submit"
-                className="btn btn-primary btn-block"
+                className="button commentb"
                 onClick={this.createcomment}
               >
                 Submit
