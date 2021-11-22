@@ -168,6 +168,7 @@ p.nameStyle {
   padding-left: 10px;
 }
 
+
 .barrita {
   position: relative;
   top: 50%;
@@ -239,12 +240,15 @@ button.btn {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: #ffffff;
+  color: #fff
+  
 }
+
 
 .hola {
   color: white !important;
 }
+
 
 .no-posts {
   color: #ffffff !important;

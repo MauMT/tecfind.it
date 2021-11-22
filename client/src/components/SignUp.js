@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
+import { Link } from "react-router-dom";
 export default class SignUp extends Component {
   constructor() {
     super();
@@ -43,63 +43,69 @@ export default class SignUp extends Component {
       successColor = "red";
     }
     return (
-      <div className="auth-wrapper">
-        <div className="auth-inner">
-          <form>
-            <h3>Registrate</h3>
-
-            <div className="form-group">
-              <label>Nombre completo</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Nombre completo"
-                onChange={(e) =>
-                  this.setState({ registerName: e.target.value, success: "" })
-                }
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Ingresa tu email"
-                onChange={(e) =>
-                  this.setState({ registerEmail: e.target.value, success: "" })
-                }
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Contraseña</label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Ingresa contraseña"
-                onChange={(e) =>
-                  this.setState({
-                    registerPassword: e.target.value,
-                    success: "",
-                  })
-                }
-              />
-            </div>
-            <p style={{ color: successColor, paddingBottom: "5px" }}>
-              {this.state.success}
-            </p>
-            <button
-              type="submit"
-              className="btn btn-primary btn-block"
-              onClick={this.signUp}
-            >
-              Registrar
-            </button>
-            <p className="forgot-password text-right">
-              ¿Ya estás registrado? <a href="/login">Inicia sesión</a>
-            </p>
-          </form>
+      <div className="auth-wrapper backregister">
+          <Link className="buttonback" to={"/"}>
+          Inicio
+        </Link>
+        <div className="login-box">
+          <div className="login-snip">
+            <form>
+              <h3 class="tab">Registrate</h3>
+              <p></p>
+              <div className="group">
+                <label class="label">Nombre completo</label>
+                <input
+                  type="text"
+                  class="input"
+                  placeholder="Nombre completo"
+                  onChange={(e) =>
+                    this.setState({ registerName: e.target.value, success: "" })
+                  }
+                />
+              </div>
+              <br/>
+              <div className="group">
+                <label class="label">Email</label>
+                <input
+                  type="email"
+                  class="input"
+                  placeholder="Ingresa tu email"
+                  onChange={(e) =>
+                    this.setState({ registerEmail: e.target.value, success: "" })
+                  }
+                />
+              </div>
+              <br/>
+              <div className="group">
+                <label class="label">Contraseña</label>
+                <input
+                  type="password"
+                  class="input"
+                  placeholder="Ingresa contraseña"
+                  onChange={(e) =>
+                    this.setState({
+                      registerPassword: e.target.value,
+                      success: "",
+                    })
+                  }
+                />
+              </div>
+              <p style={{ color: successColor, paddingBottom: "5px" }}>
+                {this.state.success}
+              </p>
+              <button
+                type="submit"
+                className="button"
+                onClick={this.signUp}
+              >
+                Registrar
+              </button>
+              <div class="hr"></div>
+              <p className="foot">
+                ¿Ya estás registrado? <a href="/login">Inicia sesión</a>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     );

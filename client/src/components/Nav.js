@@ -1,11 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import "../pages/App.css";
+import "../index.css";
 
 
 export const Nav = (props) => {
 
     return (
+
           <nav className="navbar navbar-expand-lg navbar-light fixed-top">
             {" "}
             <Link className="nav-link" to={"/"}>
@@ -17,7 +18,7 @@ export const Nav = (props) => {
                 className="collapse navbar-collapse"
                 id="navbarTogglerDemo02"
               >
-                <ul className="navbar-nav ml-auto">
+                <ul className="navbar-nav ms-auto">
                   <li className="nav-item">
                     <Link className="nav-link hola" to={"/"}>
                       Inicio
@@ -47,5 +48,6 @@ export const Nav = (props) => {
               </div>
             </div>
           </nav>
+
     );
   }
