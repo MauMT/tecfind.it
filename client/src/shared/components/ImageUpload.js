@@ -40,7 +40,7 @@ const ImageUpload = props => {
   };
 
   return (
-    <div className="form-control">
+    <div>
       <input
         id={props.id}
         ref={filePickerRef}
@@ -54,8 +54,8 @@ const ImageUpload = props => {
           {previewUrl && <img src={previewUrl} alt="Preview" />}
           {!previewUrl && <p>Please pick an image.</p>}
         </div>
-        <button type="button" onClick={pickImageHandler}>
-          PICK IMAGE
+        <button type="button" onClick={pickImageHandler} className="subirButton">
+          Subir imagen
         </button>
       </div>
       {!isValid && <p>{props.errorText}</p>}
