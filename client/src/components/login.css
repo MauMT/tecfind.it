@@ -28,6 +28,7 @@
 .login-box {
     width: 100%;
     margin: auto;
+    margin-top: 7em;
     max-width: 525px;
     min-height: 670px;
     position: relative;
@@ -201,6 +202,16 @@ input[type=file]::-webkit-file-upload-button {
     
 }
 
+.foot a{
+    color: #f8dd3b;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.foot a:hover{
+    color: #fa9222
+}
+
 .card {
     width: 500px;
     left: 100px
@@ -212,4 +223,8 @@ input[type=file]::-webkit-file-upload-button {
 
 ::placeholder {
     color: #fff;
+}
+
+.btnReg{
+    margin-top: 1em;
 }

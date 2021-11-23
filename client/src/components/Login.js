@@ -56,16 +56,14 @@ const Login = () => {
 
     return (
       <div className="auth-wrapper back">
-          <Link className="buttonback" to={"/"}>
-          Inicio
-        </Link>
+          
       <div className="login-box">
         <div className=" login-snip">
           <form onSubmit={loginHandler}>
-            <h3 class="tab">Log In</h3>
+            <h3 class="tab">Iniciar sesión</h3>
             <p></p>
             <div className="group">
-              <label class="label">Email </label>
+              <label class="label">Correo electrónico </label>
               <Input
                 element="input"
                 id="email"
@@ -113,15 +111,20 @@ const Login = () => {
             </button>
             <div class="hr"></div>
             <div class="foot">
-            <p className="foot">
-              ¿Olvidaste tu{" "}
-              <a
-                href="#"
-                onClick={() => alert("Un email para recuperarla ha sido enviado")}
-              >
-                contraseña?
-              </a>
-            </p>
+              <p className="foot">
+                ¿Olvidaste tu{" "}
+                <a
+                  href="#"
+                  onClick={() => alert("Un email para recuperarla ha sido enviado")}
+                >
+                  contraseña
+                </a>
+                ?
+              </p>
+              <p className="foot">
+                ¿No tienes cuenta? <a href="/signup">Registrate</a>
+              </p>
+            
             </div>
           </form>
         </div>
