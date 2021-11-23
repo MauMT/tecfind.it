@@ -23,6 +23,11 @@ import {
   VALIDATOR_REQUIRE
 } from '../shared/util/validators';
 import ImageUpload from "../shared/components/ImageUpload";
+import {useNavigate} from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure()
 
 const groupStyles = {
   display: "flex",
@@ -88,6 +93,7 @@ const formatGroupLabel = (data) => (
 
 const CreatePost = () => {
   const auth = useContext(AuthContext);
+  const navigate = useNavigate();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
@@ -129,7 +135,9 @@ const CreatePost = () => {
         'http://localhost:3001/api/createpost',
         'POST',
         formData
-      );
+      )
+      toast.success('Post creado exitosamente!', {position: toast.POSITION.BOTTOM_CENTER})
+      navigate('/');;
     } catch (error) {
       console.log(error);
     }

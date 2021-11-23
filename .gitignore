@@ -108,3 +108,4 @@ dist
 
 #package_lock
 package-lock.json
+*.jpeg
