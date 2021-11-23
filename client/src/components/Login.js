@@ -1,51 +1,59 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import axios from "axios";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import"./login.css";
 import { Link } from "react-router-dom";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE
+} from '../shared/util/validators';
+import { useForm } from '../shared/hooks/form-hook';
+import { useHttpClient } from '../shared/hooks/http-hook';
+import { AuthContext } from '../shared/context/auth-context';
+import Input from '../shared/components/Input';
 
-export default class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loginEmail: "",
-      loginPassword: "",
-      loginStatus: "",
-      success: "",
-    };
-  }
 
-  login = (e) => {
-    e.preventDefault();
-    axios
-      .post("/api/login", this.state, { withCredentials: true })
-      .then((response) => {
-        console.log(response.data);
-        if (
-          response.data.message === "Wrong password" ||
-          response.data.message === "User doesn't exist"
-        ) {
-          this.setState({ success: response.data.message });
-        } else {
-          window.location.reload();
-          if (response.data.message) {
-            this.state.loginStatus = response.data.message;
-          } else {
-            this.state.loginStatus = response.data[0].email;
-          }
+const Login = () => {
+    const auth = useContext(AuthContext);
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+    const [formState, inputHandler, setFormData] = useForm(
+      {
+        email: {
+          value: '',
+          isValid: true
+        },
+        password: {
+          value: '',
+          isValid: true
         }
-      });
-  };
+      },
+      true
+    );
 
-  componentDidMount() {
-    axios.get("/api/login").then((response) => {
-      if (response.data.loggedIn == true) {
-        this.state.loginStatus = response.data.user[0].email;
+    const loginHandler = async event => {
+      event.preventDefault();
+
+      try {
+        const responseData = await sendRequest(
+          'http://localhost:3001/api/login',
+          'POST',
+          JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
+          }),
+          {
+            'Content-Type': 'application/json'
+          }
+        );
+        console.log(responseData);
+        auth.login(responseData.userId, responseData.token, responseData.email);
+      } catch (error) {
+        console.log(error);
       }
-    });
-  }
 
-  render() {
+    }
+
     return (
       <div className="auth-wrapper back">
           <Link className="buttonback" to={"/"}>
@@ -53,29 +61,33 @@ export default class Login extends Component {
         </Link>
       <div className="login-box">
         <div className=" login-snip">
-          <form>
+          <form onSubmit={loginHandler}>
             <h3 class="tab">Log In</h3>
             <p></p>
             <div className="group">
               <label class="label">Email </label>
-              <input
+              <Input
+                element="input"
+                id="email"
                 class="input"
                 type="email"
                 placeholder="Ingresa tu email"
-                onChange={(e) => this.setState({ loginEmail: e.target.value })}
+                validators={[VALIDATOR_EMAIL()]}
+                onInput={inputHandler}
               />
             </div>
 
             <br/>
             <div className="group">
               <label class="label">Contraseña</label>
-              <input
+              <Input
+                element="input"
+                id="password"
                 class="input"
                 type="password"
                 placeholder="Ingresa tu contraseña"
-                onChange={(e) =>
-                  this.setState({ loginPassword: e.target.value })
-                }
+                validators={[VALIDATOR_REQUIRE()]}
+                onInput={inputHandler}
               />
             </div>
             <br/>
@@ -91,14 +103,11 @@ export default class Login extends Component {
                 </label>
               </div>
             </div>
-            <p style={{ color: "red", paddingBottom: "5px" }}>
-              {this.state.success}
-            </p>
+
 
             <button
               type="submit"
               className="button"
-              onClick={this.login}
             >
               Ingresar
             </button>
@@ -116,11 +125,10 @@ export default class Login extends Component {
             </div>
           </form>
         </div>
-
-        <h1>{this.loginStatus}</h1>
       </div>
       </div>
 
     );
-  }
-}
+  };
+
+export default Login

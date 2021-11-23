@@ -51,7 +51,7 @@ const SignUp = () => {
           'Content-Type': 'application/json'
         }
       );
-      auth.login(responseData.userId, responseData.token)
+      auth.login(responseData.userId, responseData.token, responseData.email);
     } catch (error) {
       console.log(error);
     }
