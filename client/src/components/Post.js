@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import axios from "axios";
 import "./Post.css";
 import Comment from "./Comment";
@@ -6,23 +6,15 @@ import CreateComment from "./CreateComment.js";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
-export default class Post extends Component {
-  constructor() {
-    super();
-    this.state = {
-      comments: [],
-    };
-  }
+import { AuthContext } from "../shared/context/auth-context";
 
-  componentDidMount() {
-    axios.get(`/api/post/${this.props.postID}`).then((response) => {
-      this.setState({
-        comments: response.data,
-      });
-    });
-  }
 
-  formatDate = (date) => {
+
+const Post = props => {
+
+  const auth = useContext(AuthContext);
+
+  const formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
@@ -34,53 +26,43 @@ export default class Post extends Component {
     return [year, month, day].join("-");
   };
 
-  deletePost = () => {
-    axios
-      .delete("/api/post", { data: { postID: this.props.postID } })
-      .then((response) => {
-        window.location.reload();
-      });
-  };
+  const deletePost = () => {
+    console.log('Intento borrar');
+  }
 
-  changeStatus = (e) => {
-    const tag = e.target.textContent;
-    axios
-      .put("/api/post/status", { data: { tag, postID: this.props.postID } })
-      .then((response) => {
-        console.log("post status changed");
-        window.location.reload();
-      });
-  };
 
-  render() {
     let delButton;
     let createComment;
     let status;
     let variant;
-    if (this.props.tag === "Open") {
+    if (props.tag === "Open") {
       variant = "success";
-    } else if (this.props.tag === "Closed") {
+    } else if (props.tag === "Closed") {
       variant = "secondary";
-    } else if (this.props.tag === "To be collected") {
+    } else if (props.tag === "To be collected") {
       variant = "warning";
     }
 
+    const changeStatus = () => {
+      console.log("Entré");
+    };
+
     // if user logged is the same creator of the post
-    if (this.props.email == this.props.correo) {
+    if (props.email == auth.userEmail) {
       status = (
         <div className="dropdown">
           <DropdownButton
             variant={variant}
             id="dropdown-basic-button"
-            title={this.props.tag}
+            title={props.tag}
           >
-            <Dropdown.Item href="#" onClick={this.changeStatus}>
+            <Dropdown.Item href="#" onClick={changeStatus}>
               Abierto
             </Dropdown.Item>
-            <Dropdown.Item href="#" onClick={this.changeStatus}>
+            <Dropdown.Item href="#" onClick={changeStatus}>
               Cerrado
             </Dropdown.Item>
-            <Dropdown.Item href="#" onClick={this.changeStatus}>
+            <Dropdown.Item href="#" onClick={changeStatus}>
               Esperando recolección
             </Dropdown.Item>
           </DropdownButton>
@@ -89,7 +71,7 @@ export default class Post extends Component {
       delButton = (
         <button
           className="pull-right social-action btn btn-danger w-auto"
-          onClick={this.deletePost}
+          onClick={deletePost}
         >Borrar{" "}
         </button>
       );
@@ -98,7 +80,7 @@ export default class Post extends Component {
       status = (
         <div>
           <Button variant={variant} size="md" disabled>
-            {this.props.tag}
+            {props.tag}
           </Button>
           <br></br>
         </div>
@@ -106,10 +88,10 @@ export default class Post extends Component {
     }
 
     // user is logged
-    if (this.props.email != "") {
+    if (auth.token) {
       createComment = (
         <div className="social-footer">
-          <CreateComment postID={this.props.postID} />
+          <CreateComment postID={props.id} />
         </div>
       );
     } else {
@@ -135,34 +117,34 @@ export default class Post extends Component {
                 {delButton}
                 <div className="social-avatar">
                   <div className="usuarioPost">
-                    <a>{this.props.nombreUsuario}</a>
+                    <a>{auth.userEmail}</a>
                   </div>
                 </div>
                 <div className="social-body">
                   <div className="tituloPost">
-                    <p>{this.props.objectName}</p>
+                    <p>{props.name}</p>
                   </div>
 
                   <small>
                     <a> {status}</a>
                     <a>
-                      <strong>Lugar:</strong> {this.props.lugar}{" "}
+                      <strong>Lugar:</strong> {props.place}{" "}
                     </a>{" "}
                     <br />
                     <a>
                       <strong>Fecha encontrado:</strong>{" "}
-                      {this.formatDate(this.props.fecha)}{" "}
+                      {formatDate(props.date)}{" "}
                     </a>
                   </small>
 
                   <img
-                    src={this.props.image}
+                    src={`http://localhost:3001/${props.image}`}
                     className="img-responsive img-size post-img"
                   />
                 </div>
-                {/* {createComment} */}
+                
                 <div className="social-footer">
-                  {this.state.comments.map((comment) => {
+                  {/*this.state.comments.map((comment) => {
                     return (
                       <Comment
                         nombreUsuario={comment.nombreUsuario}
@@ -175,14 +157,15 @@ export default class Post extends Component {
                         tag={comment.tag}
                       />
                     );
-                  })}
+                  })*/}
                 </div>
-                {createComment}
+                {/* {createComment} */}
               </div>
             </div>
           </div>
         </div>
       </div>
     );
-  }
 }
+
+export default Post

@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import "./login.css";
-import Post from "./Post";
 import { useHttpClient } from '../shared/hooks/http-hook';
 import { AuthContext } from '../shared/context/auth-context';
 import axios from "axios";
+import PostList from "./PostList";
 
 const UserPosts = () => {
 
@@ -36,7 +36,17 @@ const UserPosts = () => {
     return (
       <div>
         <h1 className="post-title2">Mis posts</h1>
-          <h2 className="no-posts">No tienes posts aún 😖</h2>
+          {!loadedPosts && (
+            <h2 className="no-posts">No tienes posts aún 😖</h2>
+          )}
+          {loadedPosts && (
+            <div className="postStyle">
+              <PostList
+                items={loadedPosts}
+              />  
+            </div>
+          )}
+          
       </div>
     );
 
@@ -47,18 +57,7 @@ export default UserPosts;
 
 /*
 <div className="postStyle">
-     <Post
-                  key={post.postID}
-                  postID={post.postID}
-                  correo={post.correo}
-                  tag={post.tag}
-                  objectName={post.objectName}
-                  lugar={post.lugar}
-                  fecha={post.fecha}
-                  image={post.image}
-                  nombreUsuario={post.nombreUsuario}
-                  email={this.state.email}
-                />       
+                     
           </div>
 
 
