@@ -10,9 +10,11 @@ import { useForm } from '../shared/hooks/form-hook';
 import { useHttpClient } from '../shared/hooks/http-hook';
 import { AuthContext } from '../shared/context/auth-context';
 import Input from '../shared/components/Input';
+import {useNavigate} from 'react-router-dom';
 
 const SignUp = () => {
     const auth = useContext(AuthContext);
+    const navigate = useNavigate();
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
     const [formState, inputHandler, setFormData] = useForm(
@@ -37,7 +39,6 @@ const SignUp = () => {
   const signUpHandler = async event => {
     event.preventDefault();
 
-
     try {
       const responseData = await sendRequest(
         'http://localhost:3001/api/signup',
@@ -52,14 +53,15 @@ const SignUp = () => {
         }
       );
       auth.login(responseData.userId, responseData.email, responseData.token);
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
   };
 
-    return (
-      <div className="auth-wrapper backregister">
-          <Link className="buttonback" to={"/"}>
+  return (
+    <div className="auth-wrapper backregister">
+        <Link className="buttonback" to={"/"}>
           Inicio
         </Link>
         <div className="login-box">
