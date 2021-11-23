@@ -13,26 +13,7 @@ const PostController = require('../controllers/PostController');
 const fileUpload = require('../middleware/file-upload');
 
 
-router.get("/", (req,res) => {
-    res.render(__dirname + "/../views/home.ejs");
-});
-
-router.get("/login-signup", (req, res) =>{
-    res.render(__dirname + "/../views/login.ejs");
-});
-
-router.get("/api/post/:id", async(req, res) => {
-    const post = await Posts.find({_id: new ObjectId(req.params.id)}).catch(err => {
-        console.log(err);
-    });
-    res.json(post) //cambiar a render de post
-});
-
-router.get("/api/myposts", async(req,res) => {
-    const result = await Posts.find({userID: req.user.id})
-    res.json(result)
-});
-
+//USER
 router.post("/api/signup",
     [
         check('userName', 'El nombre de usuario es requerido').not().isEmpty(),
@@ -55,7 +36,9 @@ router.post("/api/createpost",
     fileUpload.single('image'),
     PostController.createPost);
 
+router.get("/api/posts/feed", PostController.getAllPosts);
 router.post("/api/posts/user", PostController.getPostsByUserId);
+
 
 router.delete("/api/post", (req,res) => {
     res.send(`Post ${req.params.id}`);

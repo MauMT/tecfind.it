@@ -6,6 +6,29 @@ const HttpError = require('../models/http-error');
 const Post = require('../models/posts');
 const User = require('../models/users');
 
+const getAllPosts = async(req, res, next) => {
+    let postsFound;
+    try {
+        postsFound = await Post.find();
+    } catch (error) {
+        return next(
+            new HttpError('Fetching posts failed!', 500)
+        );
+    }
+
+    if(!postsFound){
+        return next(
+            new HttpError('Could not find posts for the provided email.', 404)
+          );
+    }
+
+    res.status(200).json({
+        posts: postsFound
+    });
+
+
+}
+
 const createPost = async(req, res, next) => {
     const {tag, objectName, lugar, fecha, correo} = req.body;
 
@@ -59,5 +82,6 @@ const getPostsByUserId = async (req, res, next) => {
 
 module.exports = {
     createPost: createPost,
-    getPostsByUserId: getPostsByUserId
+    getPostsByUserId: getPostsByUserId,
+    getAllPosts: getAllPosts
 }

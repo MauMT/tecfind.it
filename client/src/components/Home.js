@@ -1,57 +1,31 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Post from "./Post";
+import React, { useEffect, useContext, useState } from "react";
+import { useHttpClient } from "../shared/hooks/http-hook";
+
+import PostList from "./PostList";
 import '../index.css'
+import { AuthContext } from "../shared/context/auth-context";
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
+const Home = () => {
 
-    this.state = {
-      posts: [],
-      email: "",
-      name: "",
-      search: "",
-      searchTag: false,
-      Tag: "",
-      filteredPosts: [],
+  const [loadedPosts, setLoadedPosts] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const auth = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const responseData = await sendRequest(
+          'http://localhost:3001/api/posts/feed'
+        );
+        setLoadedPosts(responseData.posts);
+        console.log(loadedPosts);
+      } catch (err) {}
     };
-  }
-
-  upd = () => {
-    axios.get("/api/login").then((response) => {
-      if (response.data.loggedIn === true) {
-        this.setState({
-          email: response.data.user[0].correo,
-          name: response.data.user[0].nombreUsuario,
-        });
-      } else {
-        this.setState({
-          email: "",
-          name: "",
-        });
-      }
-    });
-  };
-
-  componentDidMount() {
-    this.upd();
-    axios.get("/api/").then((response) => {
-      this.setState({
-        posts: response.data,
-        filteredPosts: response.data,
-      });
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.email !== this.state.email) {
-      this.upd();
-    }
-  }
+    fetchPosts();
+  }, [sendRequest]);
 
   // Filtering with Search bar
-  updateSearch(event) {
+  const updateSearch = (event) => {
     this.setState({ search: event.target.value });
 
     this.setState({
@@ -70,7 +44,7 @@ export default class Home extends Component {
   }
 
   //Fitering for tags
-  handleTag = (e) => {
+  const handleTag = (e) => {
     console.log(e.target.value);
     this.state.searchTag = true;
     this.state.Tag = e.target.value;
@@ -89,7 +63,7 @@ export default class Home extends Component {
   };
 
   //Fitering for tags
-  handlePlace = (e) => {
+  const handlePlace = (e) => {
     console.log(e.target.value);
 
     this.setState({ search: "" });
@@ -105,7 +79,6 @@ export default class Home extends Component {
     }
   };
 
-  render() {
     return (
       <div  style={{ marginTop: "50px", paddingBottom: "30px" }}>
         <div className="sidebar">
@@ -115,7 +88,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="All"
-                onClick={this.handleTag}
+                onClick={handleTag}
                 autoFocus
               >
                 {" "}
@@ -124,7 +97,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="Open"
-                onClick={this.handleTag}
+                onClick={handleTag}
               >
                 {" "}
                 Abierto{" "}
@@ -132,7 +105,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="Closed"
-                onClick={this.handleTag}
+                onClick={handleTag}
               >
                 {" "}
                 Cerrado{" "}
@@ -140,7 +113,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="To be collected"
-                onClick={this.handleTag}
+                onClick={handleTag}
               >
                 {" "}
                Esperando recolección{" "}
@@ -153,7 +126,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="All"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 Todos{" "}
@@ -161,7 +134,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="A1"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 A1{" "}
@@ -169,7 +142,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="A2"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 A2{" "}
@@ -177,7 +150,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="A3"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 A3{" "}
@@ -185,7 +158,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="A4"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 A4{" "}
@@ -193,7 +166,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="A6"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 A6{" "}
@@ -201,7 +174,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="A7"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 A7{" "}
@@ -209,7 +182,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="CIAP"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 CIAP{" "}
@@ -217,7 +190,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="Centrales"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 Centrales{" "}
@@ -225,7 +198,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="La Carreta"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 La Carreta{" "}
@@ -233,7 +206,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="Jubileo"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 Jubileo{" "}
@@ -241,7 +214,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="E1"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 E1{" "}
@@ -249,7 +222,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="E4"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 E4{" "}
@@ -257,7 +230,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="E6"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 E6{" "}
@@ -265,7 +238,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="E7"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 E7{" "}
@@ -273,7 +246,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="Bibliotec"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 Bibliotec{" "}
@@ -281,7 +254,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="Rectoria"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 Rectoria{" "}
@@ -289,7 +262,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="CETEC"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 CETEC{" "}
@@ -297,7 +270,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="JDC"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 JDC{" "}
@@ -305,7 +278,7 @@ export default class Home extends Component {
               <button
                 className="btn btnLeft"
                 value="Others"
-                onClick={this.handlePlace}
+                onClick={handlePlace}
               >
                 {" "}
                 Others{" "}
@@ -315,7 +288,12 @@ export default class Home extends Component {
         </div>
 
         <div className="postsMenu">
-          <h1 className="post-title">{"Bienvenido " + this.state.name}</h1>
+          {auth.token && (
+            <h1 className="post-title">{"Bienvenido " + auth.userEmail}</h1>
+          )}
+          {!auth.token && (
+            <h1 className="post-title">{"Bienvenido"}</h1>
+          )}
           <br></br>
           <div className="barrita">
             <input
@@ -323,36 +301,24 @@ export default class Home extends Component {
               type="text"
               icon="search"
               placeholder="Search object type"
-              value={this.state.search}
-              onChange={this.updateSearch.bind(this)}
+              value="" //poner estado de busqueda
+              onChange={updateSearch} //updateSearch.bind(this)
             />
             <i className="fa fa-search"></i>
           </div>
           <br />
-          {this.state.posts && this.state.posts.length > 0 ? (
+          {!loadedPosts && (
+             <h2 className="no-posts">No hay posts 🥺</h2>
+          )}
+          {loadedPosts && (
             <div className="postStyle">
-              {this.state.filteredPosts.map((post) => {
-                return (
-                  <Post
-                    key={post.postID}
-                    postID={post.postID}
-                    correo={post.correo}
-                    tag={post.tag}
-                    objectName={post.objectName}
-                    lugar={post.lugar}
-                    fecha={post.fecha}
-                    image={post.image}
-                    nombreUsuario={post.nombreUsuario}
-                    email={this.state.email}
-                  />
-                );
-              })}
+              <PostList
+                items={loadedPosts}
+              />  
             </div>
-          ) : (
-            <h2 className="no-posts">No hay posts 🥺</h2>
           )}
         </div>
       </div>
     );
   }
-}
+export default Home
