@@ -57,7 +57,7 @@ const SignUp = () => {
         }
       );
       auth.login(responseData.userId, responseData.email, responseData.token);
-      toast.success('Registered successfully!', {position: toast.POSITION.BOTTOM_CENTER})
+      toast.success('Registrado exitosamente!', {position: toast.POSITION.BOTTOM_CENTER})
       navigate('/');
     } catch (error) {
       toast.error(error.message, {position: toast.POSITION.BOTTOM_CENTER})

@@ -4,17 +4,22 @@
     background: url(https://64.media.tumblr.com/5b2851954889ca82cbbec5cd91eb5085/05022e4132191e27-af/s1280x1920/f2d011245d70bd0a09cd0bb6a1d3ae9a1405412f.gifv);
     background-size:110%;
     background-position: center;
+    background-attachment: scroll;
 }
 
 .backposts{
     margin: 0;
-    color: #6a6f8c;
-    background-image: url(https://i.pinimg.com/originals/48/05/bf/4805bfe8368d1783ce0b299ffd852bbb.gif);
+    color: #FCCDCA;
     background-repeat: no-repeat;
     background-position: right;
     background-position-y: bottom;
     background-color:#FCCDCA;
+    background-attachment: scroll;
 
+}
+
+.auth-wrapper{
+    height: 125%;
 }
 
 .backregister{
@@ -23,21 +28,24 @@
     background: url(https://64.media.tumblr.com/71c50f010f0de5b797935a3aceaf1bf5/0f6b95b4c3f5c3bd-4c/s1997x1311/063a3b7b6bbb3d89adcb6df576259cb327ff01b1.gif);
     background-size:110%;
     background-position: center;
+    background-attachment: scroll;
 }
 .login-box {
     width: 100%;
     margin: auto;
     margin-top: 7em;
     max-width: 525px;
-    min-height: 670px;
-    height: 1200px;
-    position: relative;
+    height:auto;
+    position:relative;
+    align-self: center;
+    align-items: center;
+    align-self:bottom;
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19)
 }
 
 .login-snip {
     width: 100%;
-    height: 100%;
+    height: auto;
     position: absolute;
     padding: 60px 70px 50px 70px;
     background: rgba(0, 124, 119, .9)

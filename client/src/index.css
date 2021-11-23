@@ -256,7 +256,10 @@ input.search-box {
 }
 
 .postStyle {
-  padding-left: 150px;
+  margin-left: -5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button.btn {
@@ -335,3 +338,4 @@ font-weight: 100;
   background-color: transparent;
   border: none;
 }
+

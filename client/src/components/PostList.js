@@ -7,7 +7,7 @@ const PostList = props => {
     if(props.items.length === 0) {
         return (
             <div className='noPostList'>
-                <p>¿Quieres crear un post?</p>
+                <p>Aun no hay posts creados</p>
             </div>
         )
     }
