@@ -27,6 +27,7 @@ export default class Login extends Component {
         ) {
           this.setState({ success: response.data.message });
         } else {
+          console.log(response.data.message)
           window.location.reload();
           if (response.data.message) {
             this.state.loginStatus = response.data.message;
