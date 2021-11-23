@@ -30,7 +30,7 @@ export const Nav = (props) => {
             {!auth.isLoggedIn &&(
               <li className="nav-item">
                 <Link className="nav-link hola" to={"/login"}>
-                  Log in&emsp;│
+                  Iniciar sesión&emsp;│
                 </Link>
               </li>
             )}
@@ -57,7 +57,7 @@ export const Nav = (props) => {
             )}
             {auth.isLoggedIn && (
               <li>
-                <button onClick={auth.logout}>LOGOUT</button>
+                <button class="nav-link hola navbar-btn" onClick={auth.logout}>Cerrar sesión</button>
               </li>
             )}
         

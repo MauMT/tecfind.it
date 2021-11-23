@@ -330,3 +330,8 @@ font-weight: 100;
     transform: rotate(360deg);
   }
 }
+
+.navbar-btn{
+  background-color: transparent;
+  border: none;
+}

@@ -9,6 +9,7 @@ const HttpError = require('../models/http-error');
 const signUp = async(req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
+        console.log(errors);
         return next(
             new HttpError(errors['errors'][0].msg, 422)
         );
@@ -90,7 +91,7 @@ const login = async(req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return next(
-            new HttpError('Mal formato para el logueo, verifica los datos', 422)
+            new HttpError(errors, 422)
         );
     }
 
