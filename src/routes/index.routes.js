@@ -55,6 +55,8 @@ router.post("/api/createpost",
     fileUpload.single('image'),
     PostController.createPost);
 
+router.post("/api/posts/user", PostController.getPostsByUserId);
+
 router.delete("/api/post", (req,res) => {
     res.send(`Post ${req.params.id}`);
 });
