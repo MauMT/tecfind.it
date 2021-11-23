@@ -47,7 +47,7 @@ const Login = () => {
           }
         );
         console.log(responseData);
-        auth.login(responseData.userId, responseData.token, responseData.email);
+        auth.login(responseData.userId, responseData.email, responseData.token);
       } catch (error) {
         console.log(error);
       }
