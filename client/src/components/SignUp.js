@@ -52,7 +52,7 @@ const SignUp = () => {
           'Content-Type': 'application/json'
         }
       );
-      auth.login(responseData.userId, responseData.token)
+      auth.login(responseData.userId, responseData.token, responseData.email);
       navigate('/');
     } catch (error) {
       console.log(error);

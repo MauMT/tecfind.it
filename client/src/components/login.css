@@ -1,6 +1,6 @@
 .back {
     margin: 0;
-    color: #6a6f8c;
+    color: #fff;
     background: url(https://64.media.tumblr.com/5b2851954889ca82cbbec5cd91eb5085/05022e4132191e27-af/s1280x1920/f2d011245d70bd0a09cd0bb6a1d3ae9a1405412f.gifv);
     background-size:110%;
     background-position: center;
@@ -151,14 +151,13 @@ input[type=file]::-webkit-file-upload-button {
     text-align:right;
     color:#fff;
 
-
 }
 .buttonback:focus, .buttonback:hover, .buttonback:visited, .buttonback:link, .buttonback:active {
     text-decoration: none;
     color: #fff;
 }
 .nomargin{
-    margin-left: 0%;
+    position:fixed;
 
 }
 
@@ -205,6 +204,10 @@ input[type=file]::-webkit-file-upload-button {
 .card {
     width: 500px;
     left: 100px
+}
+.commentb{
+    font-size: small;
+    margin-left: 4%;
 }
 
 ::placeholder {

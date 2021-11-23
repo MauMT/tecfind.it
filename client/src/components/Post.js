@@ -75,13 +75,13 @@ export default class Post extends Component {
             title={this.props.tag}
           >
             <Dropdown.Item href="#" onClick={this.changeStatus}>
-              Open
+              Abierto
             </Dropdown.Item>
             <Dropdown.Item href="#" onClick={this.changeStatus}>
-              Closed
+              Cerrado
             </Dropdown.Item>
             <Dropdown.Item href="#" onClick={this.changeStatus}>
-              To be collected
+              Esperando recolección
             </Dropdown.Item>
           </DropdownButton>
         </div>
@@ -90,8 +90,7 @@ export default class Post extends Component {
         <button
           className="pull-right social-action btn btn-danger w-auto"
           onClick={this.deletePost}
-        >
-          Delete{" "}
+        >Borrar{" "}
         </button>
       );
     } else {
@@ -147,11 +146,11 @@ export default class Post extends Component {
                   <small>
                     <a> {status}</a>
                     <a>
-                      <strong>Place:</strong> {this.props.lugar}{" "}
+                      <strong>Lugar:</strong> {this.props.lugar}{" "}
                     </a>{" "}
                     <br />
                     <a>
-                      <strong>Date found:</strong>{" "}
+                      <strong>Fecha encontrado:</strong>{" "}
                       {this.formatDate(this.props.fecha)}{" "}
                     </a>
                   </small>

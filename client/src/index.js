@@ -7,7 +7,7 @@ import CreatePost from './components/CreatePost';
 import SignUp from './components/SignUp';
 import MyPosts from './components/MyPosts';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import { Nav } from './components/Nav';
+
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import "./Home.css";
+import "./login.css";
 import Post from "./Post";
 import { Link } from "react-router-dom";
 
@@ -47,11 +47,11 @@ export default class MyPosts extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "100px" }}>
+      <div>
         <Link className="buttonback nomargin" to={"/"}>
           Inicio
         </Link>
-        <h1 className="post-title">Mis posts</h1>
+        <h1 className="post-title2">Mis posts</h1>
 
         {this.state.posts && this.state.posts.length > 0 ? (
           <div className="postStyle">
