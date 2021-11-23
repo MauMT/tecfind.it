@@ -37,7 +37,7 @@ export const Nav = (props) => {
             {!auth.isLoggedIn &&(
               <li className="nav-item">
                 <Link className="nav-link hola" to={"/signup"}>
-                  Registrarse&emsp;│
+                  Registrarse&emsp;
                 </Link>
             </li>
             )}
@@ -51,8 +51,13 @@ export const Nav = (props) => {
             {auth.isLoggedIn && (
               <li className="nav-item">
                 <Link className="nav-link hola" to={"/myposts"}>
-                  Mis Posts
+                  Mis Posts &emsp;│
                 </Link>
+              </li>
+            )}
+            {auth.isLoggedIn && (
+              <li>
+                <button onClick={auth.logout}>LOGOUT</button>
               </li>
             )}
         
