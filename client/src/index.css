@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #ffffff!important;
+  background: #f1f1f1!important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -111,7 +111,7 @@ html,
   z-index: 1;
   top: 10%;
   left: 0;
-  background: #ffffff
+  background: #f1f1f1;
 }
 
 .sidebar .text {

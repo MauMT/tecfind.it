@@ -67,13 +67,11 @@ const SignUp = () => {
 
   return (
     <div className="auth-wrapper backregister">
-      <Link className="buttonback" to={"/"}>
-        Inicio
-      </Link>
+      
       <div className="login-box">
         <div className="login-snip">
           <form onSubmit={signUpHandler}>
-            <h3 class="tab">Registrate</h3>
+            <h3 class="tab">Regístrate</h3>
             <p></p>
             <div className="group">
               <label class="label">Nombre completo</label>
@@ -112,9 +110,8 @@ const SignUp = () => {
             </div>
             <button
               type="submit"
-              className="button"
-            >
-              Registrar
+              className="button btnReg">
+              Registrarse
             </button>
             <div class="hr"></div>
             <p className="foot">
