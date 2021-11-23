@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('templates/_header') %>
+<link rel="stylesheet" href="/assets/loginStyles.css">
+<body>
+    <div class="row">
+        <div class="col-md-6 mx-auto p-0">
+            <div class="card">
+                <div class="login-box">
+                    <div class="login-snip"> <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label> <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+                        <div class="login-space">
+                            <div class="login">
+                                <div class="group"> <label for="user" class="label">Email</label> <input id="user" type="text" class="input" placeholder="Ingresa tu correo"> </div>
+                                <div class="group"> <label for="pass" class="label">Contraseña</label> <input id="pass" type="password" class="input" data-type="password" placeholder="Ingresa tu contraseña"> </div>
+                                <div class="group"> <input type="submit" class="button" value="Sign In"> </div>
+                                <div class="hr"></div>
+                            </div>
+                            <div class="sign-up-form">
+                                <div class="group"> <label for="user" class="label">Nombre de usuario</label> <input id="user" type="text" class="input" placeholder="Ingresa un nombre de usuario"> </div>
+                                <div class="group"> <label for="pass" class="label">Contraseña</label> <input id="pass" type="password" class="input" data-type="password" placeholder="Ingresa tu contraseña"> </div>
+                                <div class="group"> <label for="pass" class="label">Repite contraseña</label> <input id="pass" type="password" class="input" data-type="password" placeholder="Repite tu contraseña"> </div>
+                                <div class="group"> <label for="pass" class="label">Email</label> <input id="pass" type="text" class="input" placeholder="Ingresa un correo electrónico"> </div>
+                                <div class="group"> <input type="submit" class="button" value="Sign Up"> </div>
+                                <div class="hr"></div>
+                                <div class="foot"> <label for="tab-1">¿Ya tienes una cuenta?</label> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('templates/_footer') %>
+</html>
+
