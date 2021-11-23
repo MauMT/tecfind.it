@@ -1,15 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
-
-
 const path = require("path");
 const app = express();
 const dotenv = require("dotenv");
-
-
-//const bcrypt = require("bcrypt");
-//const cookieParser = require("cookie-parser");
-const session = require("express-session");
+const fs = require('fs');
 
 const HttpError = require('./models/http-error');
 
@@ -23,7 +17,8 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//app.use(cookieParser());
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
+
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -38,7 +33,6 @@ app.use((req, res, next) => {
 
 // ============= ROUTES
 app.use("/", require("./routes/index.routes"));
-app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route.', 404);

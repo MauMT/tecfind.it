@@ -90,6 +90,7 @@ const signUp = async(req, res, next) => {
 const login = async(req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
+        console.log(errors);
         return next(
             new HttpError(errors, 422)
         );

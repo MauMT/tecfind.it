@@ -4,14 +4,13 @@ const router = Router();
 const session = require("express-session");
 const ObjectId = require('mongoose').Types.ObjectId; 
 const { check } = require('express-validator');
-
+const fs = require('fs'); //para borrar después
 
 const Comments = require('../models/comments')
 const Posts = require('../models/posts');
-
-
 const UserController = require('../controllers/UserController');
-
+const PostController = require('../controllers/PostController');
+const fileUpload = require('../middleware/file-upload');
 
 
 router.get("/", (req,res) => {
@@ -51,26 +50,10 @@ router.post("/api/login",
     UserController.login
 )
 
-
-
-
-
-router.post("/api/createpost", async(req,res) => {
-    
-    const postData = {
-    "correo": req.body.correo,
-    "objectName": req.body.objectName,
-    "lugar": req.body.lugar,
-    "fecha": req.body.fecha,
-    "image": req.body.image,
-    "tag": req.body.tag
-    }  
-    const post = new Posts(postData);
-    await post.save();
-    res.json({status: "Post saved"});
-
-    
-});
+//POSTS
+router.post("/api/createpost",
+    fileUpload.single('image'),
+    PostController.createPost);
 
 router.delete("/api/post", (req,res) => {
     res.send(`Post ${req.params.id}`);

@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { Component, useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -22,6 +22,7 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE
 } from '../shared/util/validators';
+import ImageUpload from "../shared/components/ImageUpload";
 
 const groupStyles = {
   display: "flex",
@@ -85,163 +86,55 @@ const formatGroupLabel = (data) => (
 );
 
 
-const CreatePost =()=> {
-
-  /*constructor(props) {
-    super(props);
-    let temp = this.formatDate(new Date());
-    this.state = {
-      objName: "",
-      place: "A1",
-      date: new Date(),
-      image: "",
-      fDate: temp,
-      name: "",
-      email: "",
-      ok: false,
-      imgLoaded: "",
-    };
-    
-
-  }*/
-
+const CreatePost = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const [formState, inputHandler, setFormData] = useForm(
+  const [formState, inputHandler] = useForm(
     {
+      tag:{
+        value: 'Abierto',
+        isValid: true
+      },
       objeto: {
         value: '',
         isValid: true
       },
-      lugar: {
-        value: "A1",
+      image: {
+        value: null,
         isValid: true
-      },
-      fecha: {
-        value: new Date(),
-        isValid: true
-      },
-      imagen: {
-        value: '',
-        isValid: true
-      },
-      imgLoaded: {
-        value: '',
-        isValid: true
-      },
+      }
     },
     true
   );
   
+  const [startDate, setStartDate] = useState(new Date());
+  const [placeFound, setPlaceFound] = useState('A1');
+
   const postHandler = async event => {
     event.preventDefault();
 
     try {
-      const responseData = await sendRequest(
+      const formData = new FormData();
+      formData.append('correo', auth.userEmail);
+      formData.append('tag', formState.inputs.tag.value);
+      formData.append('objectName', formState.inputs.objeto.value);
+      formData.append('lugar', placeFound.selected.value);
+      formData.append('fecha', startDate);
+      formData.append('image', formState.inputs.image.value);
+      for (let value of formData.values()) {
+        console.log(value);
+      }
+      
+      await sendRequest(
         'http://localhost:3001/api/createpost',
         'POST',
-        JSON.stringify({
-          objeto: formState.inputs.objeto.value,
-          lugar: formState.inputs.lugar.value,
-          fecha: formState.inputs.fecha.value,
-          imagen: formState.inputs.imagen.value
-        }),
-        {
-          'Content-Type': 'application/json'
-        }
+        formData
       );
-      console.log(responseData);
-      auth.login(responseData.userId, responseData.token, responseData.email);
     } catch (error) {
       console.log(error);
     }
 
   }
-
- /* upd = () => {
-    axios.get("/api/login").then((response) => {
-      // console.log("response: " + response.data);
-      // console.log(response.data);
-      if (response.data.loggedIn === true) {
-        // console.log("im in");
-        this.setState({
-          email: response.data.user[0].correo,
-          name: response.data.user[0].nombreUsuario,
-        });
-      } else {
-        this.setState({
-          email: "",
-          name: "",
-        });
-      }
-    });
-  };*/
-
-  /*componentDidMount() {
-    this.upd();
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.email !== this.state.email) {
-      this.upd();
-    }
-  }*/
-
- /* formatDate = (date) => {
-    var d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return [year, month, day].join("-");
-  };
-
-  onChange = (d) => {
-    let temp = this.formatDate(d);
-    this.setState({
-      fDate: temp,
-      date: d,
-    });
-  };
-
-  createpost = (e) => {
-    e.preventDefault();
-    axios
-      .post("/api/createpost", this.state, { withCredentials: true })
-      .then((response) => {
-        if (response.data) {
-          window.location.href = "/";
-        }
-      });
-  };
-
-  
-
-  getImageURL = (e) => {
-    this.setState({
-      imgLoaded: "",
-    });
-    const id = `Client-ID ${process.env.REACT_APP_CLIENT_ID}`;
-    const data = new FormData();
-    data.append("image", e.target.files[0]);
-    const config = {
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded",
-        Authorization: id,
-      },
-    };
-    axios.post("https://api.imgur.com/3/image", data, config).then((resp) => {
-      this.setState({
-        image: resp.data.data.link,
-        imgLoaded: "¡Tu imagen se ha subido!",
-                          selected={this.state.date}
-                  onChange={this.onChange}
-      });
-    });
-  };*/
-
 
     return (
       <div className="auth-wrapper backposts">
@@ -267,7 +160,6 @@ const CreatePost =()=> {
               <div className="groupSelect">
                 <label class="label">Lugar</label>
                 <Select
-                  element="input"
                   id="lugar"
                   class="input"
                   type="lugar"
@@ -275,22 +167,14 @@ const CreatePost =()=> {
                   defaultValue={aulasOptions[0]}
                   options={groupedOptions}
                   formatGroupLabel={formatGroupLabel}
-                  validators={[VALIDATOR_REQUIRE()]}
-                  onInput={inputHandler}
+                  onChange={(selected => setPlaceFound({selected}))}
                 />
            
               </div>
               <br />
               <div className="group">
                 <label class="label">Fecha encontrado</label>
-                <DatePicker
-                  className="input"
-                  element="input"
-                  id="fecha"
-                  validators={[VALIDATOR_REQUIRE()]}
-                  onInput={inputHandler}
-
-                />
+                <DatePicker className="input" selected={startDate} onChange={(date) => setStartDate(date)} />
               </div>
               <br />
               <div className="group">
@@ -298,17 +182,12 @@ const CreatePost =()=> {
                 <small className="warning">
                   Espera al mensaje de subida exitosa
                 </small>
-                <Input
-                  type="file"
-                  className="input"
-                  element="input"
-                  id="imagen"
-                  validators={[VALIDATOR_REQUIRE()]}
+                <ImageUpload
+                  id="image"
+                  center
                   onInput={inputHandler}
                 />{" "}
-                <p style={{ color: "green" }}>{useForm['imgLoaded']}</p>
               </div>
-
               <button
                 type="submit"
                 className="button"

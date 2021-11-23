@@ -28,8 +28,10 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0",
+    "multer": "^1.4.3",
     "react-toastify": "^8.1.0",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"

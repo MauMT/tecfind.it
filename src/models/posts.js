@@ -11,7 +11,7 @@ var postSchema = new Schema({
     tag: {
         type: String,
         required: true,
-        minLength: 3,
+        minLength: 1,
         maxlength: 15
     },
     objectName: {
@@ -31,8 +31,7 @@ var postSchema = new Schema({
     },
     image: {
         type: String,
-        minLength: 1,
-        maxlength: 128
+        required: true
     }
 })
 
