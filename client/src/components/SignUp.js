@@ -61,13 +61,11 @@ const SignUp = () => {
 
   return (
     <div className="auth-wrapper backregister">
-        <Link className="buttonback" to={"/"}>
-          Inicio
-        </Link>
+        
         <div className="login-box">
           <div className="login-snip">
             <form onSubmit={signUpHandler}>
-              <h3 class="tab">Registrate</h3>
+              <h3 class="tab">Regístrate</h3>
               <p></p>
               <div className="group">
                 <label class="label">Nombre completo</label>
@@ -82,7 +80,7 @@ const SignUp = () => {
               </div>
               <br/>
               <div className="group">
-                <label class="label">Email</label>
+                <label class="label">Correo electrónico</label>
                 <Input
                   element="input"
                   id="email"
@@ -106,13 +104,13 @@ const SignUp = () => {
               </div>
               <button
                 type="submit"
-                className="button"
+                className="button btnReg"
               >
-                Registrar
+                Registrarse
               </button>
               <div class="hr"></div>
               <p className="foot">
-                ¿Ya estás registrado? <a href="/login">Inicia sesión</a>
+                ¿Ya estás registrado? <a href="/login" class="login-link">Inicia sesión</a>
               </p>
             </form>
           </div>

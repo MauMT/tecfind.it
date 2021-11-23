@@ -48,9 +48,6 @@ export default class MyPosts extends Component {
   render() {
     return (
       <div>
-        <Link className="buttonback nomargin" to={"/"}>
-          Inicio
-        </Link>
         <h1 className="post-title2">Mis posts</h1>
 
         {this.state.posts && this.state.posts.length > 0 ? (
