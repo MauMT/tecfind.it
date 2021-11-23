@@ -175,9 +175,7 @@ export default class CreatePost extends Component {
   render() {
     return (
       <div className="auth-wrapper backposts">
-        <Link className="buttonback" to={"/"}>
-          Inicio
-        </Link>
+        
         <div className="login-box">
           <div className="login-snip">
             <form>

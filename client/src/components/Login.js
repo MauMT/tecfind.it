@@ -97,7 +97,7 @@ const Login = () => {
                   id="customCheck1"
                 />
                 <label className="check" htmlFor="customCheck1">
-                &nbsp; Recuerdame
+                &nbsp; Recuérdame
                 </label>
               </div>
             </div>
@@ -122,7 +122,7 @@ const Login = () => {
                 ?
               </p>
               <p className="foot">
-                ¿No tienes cuenta? <a href="/signup">Registrate</a>
+                ¿No tienes cuenta? <a href="/signup">Regístrate</a>
               </p>
             
             </div>
