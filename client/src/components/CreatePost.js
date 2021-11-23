@@ -249,7 +249,7 @@ const CreatePost =()=> {
         <div className="login-box">
           <div className="login-snip">
             <form onSubmit={postHandler}>
-              <h3 class="tab">Crea un Post</h3>
+              <h3 class="tab">Crear un Post</h3>
               <p></p>
               <div className="group">
                 <label class="label">Nombre del objeto</label>

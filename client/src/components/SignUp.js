@@ -71,7 +71,7 @@ const SignUp = () => {
       <div className="login-box">
         <div className="login-snip">
           <form onSubmit={signUpHandler}>
-            <h3 class="tab">Regístrate</h3>
+            <h3 class="tab">Registrarse</h3>
             <p></p>
             <div className="group">
               <label class="label">Nombre completo</label>
