@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -114,14 +114,18 @@ const CreatePost =()=> {
         isValid: true
       },
       lugar: {
-        value: '',
+        value: "A1",
         isValid: true
       },
       fecha: {
-        value: '',
+        value: new Date(),
         isValid: true
       },
       imagen: {
+        value: '',
+        isValid: true
+      },
+      imgLoaded: {
         value: '',
         isValid: true
       },
@@ -182,7 +186,7 @@ const CreatePost =()=> {
     }
   }*/
 
-  formatDate = (date) => {
+ /* formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
@@ -232,9 +236,11 @@ const CreatePost =()=> {
       this.setState({
         image: resp.data.data.link,
         imgLoaded: "¡Tu imagen se ha subido!",
+                          selected={this.state.date}
+                  onChange={this.onChange}
       });
     });
-  };
+  };*/
 
 
     return (
@@ -242,7 +248,7 @@ const CreatePost =()=> {
         
         <div className="login-box">
           <div className="login-snip">
-            <form>
+            <form onSubmit={postHandler}>
               <h3 class="tab">Crea un Post</h3>
               <p></p>
               <div className="group">
@@ -272,16 +278,7 @@ const CreatePost =()=> {
                   validators={[VALIDATOR_REQUIRE()]}
                   onInput={inputHandler}
                 />
-                {/* <input
-                type="text" 
-                className="form-control"
-                placeholder="Enter place description"
-                onChange={(e) => {
-                  this.setState({
-                    place: e.target.value,
-                  });
-                }}
-              /> */}
+           
               </div>
               <br />
               <div className="group">
@@ -291,8 +288,8 @@ const CreatePost =()=> {
                   element="input"
                   id="fecha"
                   validators={[VALIDATOR_REQUIRE()]}
-                  selected={this.state.date}
-                  onChange={this.onChange}
+                  onInput={inputHandler}
+
                 />
               </div>
               <br />
@@ -307,15 +304,14 @@ const CreatePost =()=> {
                   element="input"
                   id="imagen"
                   validators={[VALIDATOR_REQUIRE()]}
-                  onChange={this.getImageURL}
+                  onInput={inputHandler}
                 />{" "}
-                <p style={{ color: "green" }}>{this.state.imgLoaded}</p>
+                <p style={{ color: "green" }}>{useForm['imgLoaded']}</p>
               </div>
 
               <button
                 type="submit"
                 className="button"
-                onClick={this.createpost}
               >
                 Crear
               </button>
