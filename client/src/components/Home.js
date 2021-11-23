@@ -80,6 +80,16 @@ const Home = () => {
     );
   };
 
+  const searchByPlace = async (place) => {
+    await getPosts();
+    if(place.target.value === 'All'){
+      return
+    }
+    setLoadedPosts(prevPosts => 
+      prevPosts.filter(post => post.lugar == place.target.value)
+    );
+  };
+
   //Fitering for tags
   const handlePlace = (e) => {
     console.log(e.target.value);
@@ -144,7 +154,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="All"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 Todos{" "}
@@ -152,7 +162,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="A1"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 A1{" "}
@@ -160,7 +170,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="A2"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 A2{" "}
@@ -168,7 +178,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="A3"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 A3{" "}
@@ -176,7 +186,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="A4"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 A4{" "}
@@ -184,7 +194,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="A6"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 A6{" "}
@@ -192,7 +202,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="A7"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 A7{" "}
@@ -200,7 +210,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="CIAP"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 CIAP{" "}
@@ -208,7 +218,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="Centrales"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 Centrales{" "}
@@ -216,7 +226,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="La Carreta"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 La Carreta{" "}
@@ -224,7 +234,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="Jubileo"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 Jubileo{" "}
@@ -232,7 +242,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="E1"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 E1{" "}
@@ -240,7 +250,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="E4"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 E4{" "}
@@ -248,7 +258,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="E6"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 E6{" "}
@@ -256,7 +266,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="E7"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 E7{" "}
@@ -264,7 +274,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="Bibliotec"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 Bibliotec{" "}
@@ -272,7 +282,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="Rectoria"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 Rectoria{" "}
@@ -280,7 +290,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="CETEC"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 CETEC{" "}
@@ -288,7 +298,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="JDC"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 JDC{" "}
@@ -296,7 +306,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="Others"
-                onClick={handlePlace}
+                onClick={searchByPlace}
               >
                 {" "}
                 Others{" "}
