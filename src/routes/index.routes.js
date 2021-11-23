@@ -6,8 +6,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { check } = require('express-validator');
 const fs = require('fs'); //para borrar después
 
-const Comments = require('../models/comments')
-const Posts = require('../models/posts');
+const CommentController = require('../controllers/CommentController');
 const UserController = require('../controllers/UserController');
 const PostController = require('../controllers/PostController');
 const fileUpload = require('../middleware/file-upload');
@@ -40,34 +39,13 @@ router.get("/api/posts/feed", PostController.getAllPosts);
 router.post("/api/posts/user", PostController.getPostsByUserId);
 
 
-router.delete("/api/post", (req,res) => {
+
+
+//COMMENTS
+router.post("/api/comment/create", CommentController.createComment);
+router.post("/api/post/comments", CommentController.getPostComments);
+
+router.delete("/api/post/delete", (req,res) => {
     res.send(`Post ${req.params.id}`);
 });
-
-router.post("/api/createcomment", async(req,res) => {
-    
-    const commentData = {
-        "correo": req.body.correo,
-        "postID": req.body.postID,
-        "fecha": req.body.fecha,
-        "texto": req.body.texto,
-
-        }  
-        const comment = new Comments(commentData);
-        await comment.save();
-        res.json({status: "Post saved"});
-
-});
-//checar si usar get, put o post y quizá cambiar ruta para modificar el status de un post
-router.get("/api/post/status", (req,res) => {
-    const newStatus = req.body.tag;
-    const postID = req.params.postID;
-    Posts.findByIdAndUpdate({postID, newStatus}, (err, post) => {
-        if (err) {
-            console.log(err);
-        }
-        res.json({status: "Post updated"});
-    });
-});
-
 module.exports = router; 

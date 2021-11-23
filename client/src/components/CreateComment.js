@@ -1,41 +1,67 @@
-import React, { Component } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
+import { AuthContext } from "../shared/context/auth-context";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import { useForm } from "../shared/hooks/form-hook";
+import Input from "../shared/components/Input";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE
+} from '../shared/util/validators';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import {useNavigate} from 'react-router-dom';
 
-export default class CreateComment extends Component {
-  constructor(props) {
-    super(props);
-    let temp = this.formatDate(new Date());
-    this.state = {
-      name: "",
-      email: "",
-      postID: 0,
-      date: temp,
-      comment: "",
-    };
-  }
+toast.configure();
 
-  upd = () => {
-    axios.get("/api/login").then((response) => {
-      if (response.data.loggedIn === true) {
-        this.setState({
-          email: response.data.user[0].correo,
-          name: response.data.user[0].nombreUsuario,
-          postID: this.props.postID,
-        });
+const CreateComment = props => {
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [formState, inputHandler] = useForm(
+    {
+      text: {
+        value: '',
+        isValid: true
       }
-    });
-  };
+    }
+  );
 
-  componentDidMount() {
-    this.upd();
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.email !== this.state.email) {
-      this.upd();
+  const postHandler = async event => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append('email', auth.userEmail);
+      formData.append('text', formState.inputs.text.value);
+      formData.append('date', formatDate(new Date()));
+      formData.append('postId', props.items);
+      for (let value of formData.values()) {
+        console.log(value);
+      }
+      await sendRequest(
+        'http://localhost:3001/api/comment/create',
+        'POST',
+        JSON.stringify({
+          email: auth.userEmail,
+          text: formState.inputs.text.value,
+          date: formatDate(new Date()),
+          postId: props.items
+        }),
+        {
+          'Content-Type': 'application/json'
+        }
+      )
+      toast.success('Comentario creado exitosamente!', {position: toast.POSITION.BOTTOM_CENTER})
+      navigate('/');
+    } catch (error) {
+      console.log(error)
     }
   }
 
-  formatDate = (date) => {
+
+  const formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
@@ -47,24 +73,14 @@ export default class CreateComment extends Component {
     return [year, month, day].join("-");
   };
 
-  onChange = (d) => {
+  const onChange = (d) => {
     this.setState({
       date: d,
     });
   };
 
-  createcomment = (e) => {
-    e.preventDefault();
-    axios
-      .post("/api/createcomment", this.state, { withCredentials: true })
-      .then((response) => {
-        if (response.data) {
-          window.location.href = "/";
-        }
-      });
-  };
 
-  render() {
+  
     return (
       <div className="media social-comment">
         <a className="pull-left">
@@ -72,21 +88,19 @@ export default class CreateComment extends Component {
         </a>
         <div className="media-body">
           <div className="input-group">
-            <input
+            <Input
               type="text"
+              id='text'
               className="form-control"
               placeholder="Leave a comment!"
-              onChange={(e) => {
-                this.setState({
-                  comment: e.target.value,
-                });
-              }}
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
             />
             <div className="input-group-append">
               <button
                 type="submit"
                 className="button commentb"
-                onClick={this.createcomment}
+                onClick={postHandler}
               >
                 Submit
               </button>
@@ -95,5 +109,6 @@ export default class CreateComment extends Component {
         </div>
       </div>
     );
-  }
 }
+
+export default CreateComment

@@ -7,7 +7,7 @@ const PostList = props => {
     if(props.items.length === 0) {
         return (
             <div className='noPostList'>
-                <p>Aun no hay posts creados</p>
+                <h2>Ningún post para mostrar</h2>
             </div>
         )
     }
@@ -19,11 +19,13 @@ const PostList = props => {
                     key={post.id}
                     email={post.correo}
                     id={post.id}
+                    postId={post._id}
                     image={post.image}
                     tag={post.tag}
                     name={post.objectName}
                     place={post.lugar}
                     date={post.fecha}
+                    comments={post.comments}
                 />
             ))}
         </ul>

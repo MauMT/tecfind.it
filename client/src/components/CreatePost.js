@@ -137,7 +137,7 @@ const CreatePost = () => {
         formData
       )
       toast.success('Post creado exitosamente!', {position: toast.POSITION.BOTTOM_CENTER})
-      navigate('/');;
+      navigate('/');
     } catch (error) {
       console.log(error);
     }

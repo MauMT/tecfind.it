@@ -38,7 +38,8 @@ const createPost = async(req, res, next) => {
         objectName,
         lugar,
         fecha,
-        image: req.file.path
+        image: req.file.path,
+        comments: []
     })
 
     //en teoria checar que el correo si es valido y tener un pointer

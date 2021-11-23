@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import "./Post.css";
 
-export default class Comment extends Component {
-  formatDate = (date) => {
+const Comment = props => {
+
+
+  const formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
       day = "" + d.getDate(),
@@ -13,22 +15,22 @@ export default class Comment extends Component {
     return [year, month, day].join("-");
   };
 
-  render() {
     return (
       <div className="social-comment">
         <a className="pull-left">
           <img src="https://fertilitynetworkuk.org/wp-content/uploads/2017/01/Facebook-no-profile-picture-icon-620x389.jpg" />
         </a>
         <div className="media-body">
-          <a href="#">{this.props.nombreUsuario} </a>
+          <a href="#">{props.email} </a>
           <small className="fecha-comment text-muted">
-            {this.formatDate(this.props.fecha)}
+            {formatDate(props.date)}
           </small>
           <br />
-          {this.props.texto}
+          {props.text}
           <br />
         </div>
       </div>
     );
-  }
 }
+
+export default Comment

@@ -1,18 +1,20 @@
-import React, { Component, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import "./Post.css";
-import Comment from "./Comment";
+import CommentList from "./CommentList";
 import CreateComment from "./CreateComment.js";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import { AuthContext } from "../shared/context/auth-context";
-
+import { useHttpClient } from "../shared/hooks/http-hook";
 
 
 const Post = props => {
 
   const auth = useContext(AuthContext);
+  const [loadedComments, setLoadedComments] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const formatDate = (date) => {
     var d = new Date(date),
@@ -29,6 +31,31 @@ const Post = props => {
   const deletePost = () => {
     console.log('Intento borrar');
   }
+  
+  useEffect(() => { 
+    const fetchComments = async () => {
+      try {
+        if(props.comments.length > 0){
+          const responseData = await sendRequest(
+            'http://localhost:3001/api/post/comments',
+            'POST',
+            JSON.stringify({
+              postId: props.postId,
+            }),
+            {
+              'Content-Type': 'application/json'
+            }
+          );
+          setLoadedComments(responseData.comments);
+        }else{
+          return
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchComments();
+  }, [sendRequest]);
 
 
     let delButton;
@@ -142,24 +169,17 @@ const Post = props => {
                     className="img-responsive img-size post-img"
                   />
                 </div>
-                
                 <div className="social-footer">
-                  {/*this.state.comments.map((comment) => {
-                    return (
-                      <Comment
-                        nombreUsuario={comment.nombreUsuario}
-                        key={comment.commentid}
-                        commentid={comment.commentid}
-                        correo={comment.correo}
-                        postid={comment.postid}
-                        fecha={comment.fecha}
-                        texto={comment.texto}
-                        tag={comment.tag}
-                      />
-                    );
-                  })*/}
+                  {loadedComments &&(
+                    
+                    <CommentList
+                      items={loadedComments}
+                    />
+                  )}
+                  {auth.token && (
+                      <CreateComment items={props.postId}/>
+                  )}
                 </div>
-                {/* {createComment} */}
               </div>
             </div>
           </div>

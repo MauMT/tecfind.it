@@ -55,10 +55,3 @@ const UserPosts = () => {
 
 export default UserPosts;
 
-/*
-<div className="postStyle">
-                     
-          </div>
-
-
-*/

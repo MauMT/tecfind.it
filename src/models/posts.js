@@ -1,4 +1,5 @@
 const {Schema, model} = require('mongoose');
+const mongoose = require('mongoose');
 
 var postSchema = new Schema({
     //foreign key in RDBMS
@@ -32,7 +33,8 @@ var postSchema = new Schema({
     image: {
         type: String,
         required: true
-    }
+    },
+    comments: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Comment' }]
 })
 
 module.exports = model('Post', postSchema);
