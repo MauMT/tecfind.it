@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { Component, useContext, useEffect, useState } from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import {
@@ -11,6 +11,10 @@ import { useHttpClient } from '../shared/hooks/http-hook';
 import { AuthContext } from '../shared/context/auth-context';
 import Input from '../shared/components/Input';
 import {useNavigate} from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure()
 
 const SignUp = () => {
     const auth = useContext(AuthContext);
@@ -53,72 +57,74 @@ const SignUp = () => {
         }
       );
       auth.login(responseData.userId, responseData.email, responseData.token);
+      toast.success('Registered successfully!', {position: toast.POSITION.BOTTOM_CENTER})
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error(error.message, {position: toast.POSITION.BOTTOM_CENTER})
+      console.log(Object.keys(error))
     }
   };
 
   return (
     <div className="auth-wrapper backregister">
-        <Link className="buttonback" to={"/"}>
-          Inicio
-        </Link>
-        <div className="login-box">
-          <div className="login-snip">
-            <form onSubmit={signUpHandler}>
-              <h3 class="tab">Registrate</h3>
-              <p></p>
-              <div className="group">
-                <label class="label">Nombre completo</label>
-                <Input
-                  element="input"
-                  id="userName"
-                  type="text"
-                  placeholder="Nombre completo"
-                  validators={[VALIDATOR_REQUIRE()]}
-                  onInput={inputHandler}
-                />
-              </div>
-              <br/>
-              <div className="group">
-                <label class="label">Email</label>
-                <Input
-                  element="input"
-                  id="email"
-                  type="email"
-                  placeholder="Ingresa tu email"
-                  validators={[VALIDATOR_EMAIL()]}
-                  onInput={inputHandler}
-                />
-              </div>
-              <br/>
-              <div className="group">
-                <label class="label">Contraseña</label>
-                <Input
-                  element="input"
-                  id="password"
-                  type="password"
-                  placeholder="Ingresa contraseña"
-                  validators={[VALIDATOR_REQUIRE()]}
-                  onInput={inputHandler}
-                />
-              </div>
-              <button
-                type="submit"
-                className="button"
-              >
-                Registrar
-              </button>
-              <div class="hr"></div>
-              <p className="foot">
-                ¿Ya estás registrado? <a href="/login">Inicia sesión</a>
-              </p>
-            </form>
-          </div>
+      <Link className="buttonback" to={"/"}>
+        Inicio
+      </Link>
+      <div className="login-box">
+        <div className="login-snip">
+          <form onSubmit={signUpHandler}>
+            <h3 class="tab">Registrate</h3>
+            <p></p>
+            <div className="group">
+              <label class="label">Nombre completo</label>
+              <Input
+                element="input"
+                id="userName"
+                type="text"
+                placeholder="Nombre completo"
+                validators={[VALIDATOR_REQUIRE()]}
+                onInput={inputHandler}
+              />
+            </div>
+            <br/>
+            <div className="group">
+              <label class="label">Email</label>
+              <Input
+                element="input"
+                id="email"
+                type="email"
+                placeholder="Ingresa tu email"
+                validators={[VALIDATOR_EMAIL()]}
+                onInput={inputHandler}
+              />
+            </div>
+            <br/>
+            <div className="group">
+              <label class="label">Contraseña</label>
+              <Input
+                element="input"
+                id="password"
+                type="password"
+                placeholder="Ingresa contraseña"
+                validators={[VALIDATOR_REQUIRE()]}
+                onInput={inputHandler}
+              />
+            </div>
+            <button
+              type="submit"
+              className="button"
+            >
+              Registrar
+            </button>
+            <div class="hr"></div>
+            <p className="foot">
+              ¿Ya estás registrado? <a href="/login">Inicia sesión</a>
+            </p>
+          </form>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default SignUp;
