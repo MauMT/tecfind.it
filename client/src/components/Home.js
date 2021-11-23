@@ -323,7 +323,7 @@ const Home = () => {
             <h1 className="post-title">{"Bienvenido"}</h1>
           )}
           <br></br>
-          <div className="barrita">
+         {/*  <div className="barrita">
             <input
               className="search-box"
               type="text"
@@ -333,7 +333,7 @@ const Home = () => {
               onChange={updateSearch} //updateSearch.bind(this)
             />
             <i className="fa fa-search"></i>
-          </div>
+          </div> */}
           <br />
           {!loadedPosts && (
              <h2 className="no-posts">No hay posts 🥺</h2>
