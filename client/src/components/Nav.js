@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import {Link} from "react-router-dom";
 import "../index.css";
 
+import { AuthContext } from "../shared/context/auth-context";
 
 export const Nav = (props) => {
+
+  const auth = useContext(AuthContext);
 
     return (
 
