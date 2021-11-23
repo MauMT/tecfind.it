@@ -18,11 +18,19 @@ const Home = () => {
           'http://localhost:3001/api/posts/feed'
         );
         setLoadedPosts(responseData.posts);
-        console.log(loadedPosts);
       } catch (err) {}
     };
     fetchPosts();
   }, [sendRequest]);
+
+  const getPosts = async () => {
+    try {
+      const responseData = await sendRequest(
+        'http://localhost:3001/api/posts/feed'
+      );
+      setLoadedPosts(responseData.posts);
+    } catch (err) {}
+  }
 
   // Filtering with Search bar
   const updateSearch = (event) => {
@@ -62,6 +70,16 @@ const Home = () => {
     }
   };
 
+  const searchByTag = async (tag) => {
+    await getPosts();
+    if(tag.target.value === 'All'){
+      return
+    }
+    setLoadedPosts(prevPosts => 
+      prevPosts.filter(post => post.tag == tag.target.value)
+    );
+  };
+
   //Fitering for tags
   const handlePlace = (e) => {
     console.log(e.target.value);
@@ -88,7 +106,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="All"
-                onClick={handleTag}
+                onClick={searchByTag}
                 autoFocus
               >
                 {" "}
@@ -96,16 +114,16 @@ const Home = () => {
               </button>
               <button
                 className="btn btnLeft"
-                value="Open"
-                onClick={handleTag}
+                value="Abierto"
+                onClick={searchByTag}
               >
                 {" "}
                 Abierto{" "}
               </button>
               <button
                 className="btn btnLeft"
-                value="Closed"
-                onClick={handleTag}
+                value="Cerrado"
+                onClick={searchByTag}
               >
                 {" "}
                 Cerrado{" "}
@@ -113,7 +131,7 @@ const Home = () => {
               <button
                 className="btn btnLeft"
                 value="To be collected"
-                onClick={handleTag}
+                onClick={searchByTag}
               >
                 {" "}
                Esperando recolección{" "}
