@@ -13,6 +13,15 @@ import {
 } from "../data/data";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useForm } from '../shared/hooks/form-hook';
+import { useHttpClient } from '../shared/hooks/http-hook';
+import { AuthContext } from '../shared/context/auth-context';
+import Input from '../shared/components/Input';
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE
+} from '../shared/util/validators';
 
 const groupStyles = {
   display: "flex",
@@ -75,8 +84,10 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-export default class CreatePost extends Component {
-  constructor(props) {
+
+const CreatePost =()=> {
+
+  /*constructor(props) {
     super(props);
     let temp = this.formatDate(new Date());
     this.state = {
@@ -90,9 +101,60 @@ export default class CreatePost extends Component {
       ok: false,
       imgLoaded: "",
     };
+    
+
+  }*/
+
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      objeto: {
+        value: '',
+        isValid: true
+      },
+      lugar: {
+        value: '',
+        isValid: true
+      },
+      fecha: {
+        value: '',
+        isValid: true
+      },
+      imagen: {
+        value: '',
+        isValid: true
+      },
+    },
+    true
+  );
+  
+  const postHandler = async event => {
+    event.preventDefault();
+
+    try {
+      const responseData = await sendRequest(
+        'http://localhost:3001/api/createpost',
+        'POST',
+        JSON.stringify({
+          objeto: formState.inputs.objeto.value,
+          lugar: formState.inputs.lugar.value,
+          fecha: formState.inputs.fecha.value,
+          imagen: formState.inputs.imagen.value
+        }),
+        {
+          'Content-Type': 'application/json'
+        }
+      );
+      console.log(responseData);
+      auth.login(responseData.userId, responseData.token, responseData.email);
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
-  upd = () => {
+ /* upd = () => {
     axios.get("/api/login").then((response) => {
       // console.log("response: " + response.data);
       // console.log(response.data);
@@ -109,16 +171,16 @@ export default class CreatePost extends Component {
         });
       }
     });
-  };
+  };*/
 
-  componentDidMount() {
+  /*componentDidMount() {
     this.upd();
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.email !== this.state.email) {
       this.upd();
     }
-  }
+  }*/
 
   formatDate = (date) => {
     var d = new Date(date),
@@ -151,6 +213,8 @@ export default class CreatePost extends Component {
       });
   };
 
+  
+
   getImageURL = (e) => {
     this.setState({
       imgLoaded: "",
@@ -172,7 +236,7 @@ export default class CreatePost extends Component {
     });
   };
 
-  render() {
+
     return (
       <div className="auth-wrapper backposts">
         <Link className="buttonback" to={"/"}>
@@ -185,30 +249,30 @@ export default class CreatePost extends Component {
               <p></p>
               <div className="group">
                 <label class="label">Nombre del objeto</label>
-                <input
-                  type="text"
+                <Input
+                  element="input"
+                  id="objeto"
                   class="input"
+                  type="objeto"
                   placeholder="Ingresa el nombre del objeto"
-                  onChange={(e) => {
-                    this.setState({
-                      objName: e.target.value,
-                    });
-                  }}
+                  validators={[VALIDATOR_REQUIRE()]}
+                  onInput ={inputHandler}
                 />
               </div>
               <br />
               <div className="groupSelect">
                 <label class="label">Lugar</label>
                 <Select
+                  element="input"
+                  id="lugar"
+                  class="input"
+                  type="lugar"
                   styles={customStyles}
                   defaultValue={aulasOptions[0]}
                   options={groupedOptions}
                   formatGroupLabel={formatGroupLabel}
-                  onChange={(e) => {
-                    this.setState({
-                      place: e.value,
-                    });
-                  }}
+                  validators={[VALIDATOR_REQUIRE()]}
+                  onInput={inputHandler}
                 />
                 {/* <input
                 type="text" 
@@ -226,6 +290,9 @@ export default class CreatePost extends Component {
                 <label class="label">Fecha encontrado</label>
                 <DatePicker
                   className="input"
+                  element="input"
+                  id="fecha"
+                  validators={[VALIDATOR_REQUIRE()]}
                   selected={this.state.date}
                   onChange={this.onChange}
                 />
@@ -236,9 +303,12 @@ export default class CreatePost extends Component {
                 <small className="warning">
                   Espera al mensaje de subida exitosa
                 </small>
-                <input
+                <Input
                   type="file"
                   className="input"
+                  element="input"
+                  id="imagen"
+                  validators={[VALIDATOR_REQUIRE()]}
                   onChange={this.getImageURL}
                 />{" "}
                 <p style={{ color: "green" }}>{this.state.imgLoaded}</p>
@@ -256,5 +326,5 @@ export default class CreatePost extends Component {
         </div>
       </div>
     );
-  }
 }
+export default CreatePost;
