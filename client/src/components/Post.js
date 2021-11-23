@@ -117,7 +117,7 @@ const Post = props => {
                 {delButton}
                 <div className="social-avatar">
                   <div className="usuarioPost">
-                    <a>{auth.userEmail}</a>
+                    <a>{props.email}</a>
                   </div>
                 </div>
                 <div className="social-body">
