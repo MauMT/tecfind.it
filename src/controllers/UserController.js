@@ -10,7 +10,7 @@ const signUp = async(req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return next(
-            new HttpError('Mal formato en registro de correo', 422)
+            new HttpError(errors, 422)
         );
     }
 
@@ -90,7 +90,7 @@ const login = async(req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return next(
-            new HttpError('Mal formato para el logueo, verifica los datos', 422)
+            new HttpError(errors, 422)
         );
     }
 
