@@ -94,24 +94,10 @@ const Post = props => {
             </Dropdown.Item>
           </DropdownButton>
         </div>
-      );
-      delButton = (
-        <button
-          className="pull-right social-action btn btn-danger w-auto"
-          onClick={deletePost}
-        >Borrar{" "}
-        </button>
-      );
+      ); 
+      
     } else {
-      delButton = null;
-      status = (
-        <div>
-          <Button variant={variant} size="md" disabled>
-            {props.tag}
-          </Button>
-          <br></br>
-        </div>
-      );
+      
     }
 
     // user is logged
